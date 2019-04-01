@@ -6,7 +6,7 @@
 /*   By: maegaspa <maegaspa@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/09 13:36:54 by maegaspa     #+#   ##    ##    #+#       */
-/*   Updated: 2019/03/26 16:39:43 by maegaspa    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/01 14:37:49 by maegaspa    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -27,13 +27,16 @@ int     main()
     ptdr = 147483655;
     c = 21;
  
-	printf("printf = %50s 12car garage but only got 6 cars %d\n", str, c);
+	//printf("[%d]\n", printf("printf = %04s 12car garage but only got 6 cars \n", str));
 	//printf("printf #x = %#lx\n", str);
-	ft_printf("oim = %50s 12car garage but only got 6 cars \n", str);
+	//ft_printf("printf = %04s 12car garage but only got 6 cars \n", str);
     //printf("[printf] : %#080x \n", c);
    // printf("[printf] : %+20s \n |", str);
    //printf("2 eme printf : % .20hhx \n", bite);
     //ft_printf("//ft_printf : %#080x  |\n", c);
+	//printf("double s = |%s| lol |%d| \n", "aa", 42);
+	ft_printf("s = %080s \n", str);
+
 
     //printf("lol |% s| lol |%02.s| \n", "aa");
     //ft_printf("lol |% s| lol |%02.s| \n", "aa");
