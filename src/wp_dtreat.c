@@ -6,7 +6,7 @@
 /*   By: maegaspa <maegaspa@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/11 16:42:08 by maegaspa     #+#   ##    ##    #+#       */
-/*   Updated: 2019/06/01 14:09:04 by maegaspa    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/06/03 15:39:09 by maegaspa    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -188,7 +188,7 @@ void        d_treat_1(t_flag flag, long long dig, char *len, int nb_char)
         ft_putstr(len);
     putspace = flag.width - ft_strlen(len);
     if (flag.plus > 0 && ((flag.width > 0 && flag.point > 0 && flag.precision >= 0) || (!flag.width && flag.point > 0)) && dig >= 0)
-       nb_char += char_treat('+', nb_char);
+        nb_char += char_treat('+', nb_char);
     if (flag.space > 0 && flag.precision >= 0 && !flag.plus && flag.width <= ft_strlen(len))
         nb_char += char_treat(' ', nb_char);
     if (dig == 0 && flag.width & flag.point)
