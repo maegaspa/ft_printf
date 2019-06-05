@@ -29,7 +29,10 @@ char			*ft_utoa(long long n)
 	char	*str;
 
 	if (n < 0)
+	{
+		n *= -1;
 		n = 4294967296 - n;
+	}
 	i = len(n);
 	if (!(str = malloc((sizeof(char) * i))))
 		return (0);

@@ -27,7 +27,22 @@ int     main()
    // ptdr = 147483655;
     c = 42;
 
-	printf("d : short = |%hd| long = |%ld| sshort = |%hhd| llong = |%lld|\n", 200000000000, 200000000000, 200000000000, 200000000000);
+
+	printf("[%d]\n", printf("|% d|", 0));
+	ft_printf("[%d]\n", ft_printf("|% d|", 0));
+	printf("[%d]\n", printf("|%08i|", -71));
+	ft_printf("[%d]\n", ft_printf("|%08i|", -71));
+	printf("[%d]\n", printf("|%-7d|", 7789));
+	ft_printf("[%d]\n", ft_printf("|%-7d|", 7789));
+	printf("[%d]\n", printf("|%+12.5d|", 140));
+	ft_printf("[%d]\n", ft_printf("|%+12.5d|", 140));
+	printf("[%d]\n", printf("|%00+10.4d|", 0));
+	ft_printf("[%d]\n", ft_printf("|%00+10.4d|", 0));
+	printf("[%d]\n", printf("|%20.ld et %.4hhi !|", 0x11ffaa147, (signed char)-8));
+	ft_printf("[%d]\n", ft_printf("|%20.ld et %.4hhi !|", 0x11ffaa147, (signed char)-8));
+	printf("[%d]\n", printf("|%u|", -100111));
+	ft_printf("[%d]\n", ft_printf("|%u|", -100111));
+/*	printf("d : short = |%hd| long = |%ld| sshort = |%hhd| llong = |%lld|\n", 200000000000, 200000000000, 200000000000, 200000000000);
 	ft_printf("d : short = |%hd| long = |%ld| sshort = |%hhd| llong = |%lld|\n", 200000000000, 200000000000, 200000000000, 200000000000);
 	printf("\n");
 	printf("x : short = |%hx| long = |%lx| sshort = |%hhx| llong = |%llx|\n", 200000000000, 200000000000, 200000000000, 200000000000);
@@ -50,7 +65,7 @@ int     main()
 	printf("\n");
 	printf("u : short = |%hu| long = |%lu| sshort = |%hhu| llong = |%llu|\n", -200000000000, -200000000000, -200000000000, -200000000000);
 	ft_printf("u : short = |%hu| long = |%lu| sshort = |%hhu| llong = |%llu|\n", -200000000000, -200000000000, -200000000000, -200000000000);
-	//printf("[%d]\n", printf("printf = %04s 12car garage but only got 6 cars \n", str));
+	*///printf("[%d]\n", printf("printf = %04s 12car garage but only got 6 cars \n", str));
 	//printf("printf #x = %#lx\n", str);
 	//ft_printf("printf = %04s 12car garage but only got 6 cars \n", str);
     //printf("[printf] : %#080x \n", c);

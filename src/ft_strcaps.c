@@ -11,7 +11,7 @@
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#include "includes/printf.h"
+#include "../includes/printf.h"
 
 char    *ft_strcaps(char *str)
 {

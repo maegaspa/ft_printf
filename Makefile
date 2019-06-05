@@ -25,7 +25,10 @@ FILES = src/nsm\
 		src/wp_dtreat\
 		src/wp_otreat\
 		src/wp_oxtreat\
-		src/wp_utreat
+		src/wp_utreat\
+		src/wp_ctreat\
+		src/ft_atoi_2\
+		
 
 SRC = $(addsuffix .c, $(FILES))
 OBJ = $(addsuffix .o, $(FILES))
