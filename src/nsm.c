@@ -14,7 +14,7 @@
 #include "../includes/printf.h"
 #include <stdlib.h>
 
-void		print_help(t_flag flag, int nb_char)
+/*void		print_help(t_flag flag, int nb_char)
 {
     printf("hash : %d\n", flag.hashtag);
     printf("preci: %d\n", flag.precision);
@@ -29,7 +29,7 @@ void		print_help(t_flag flag, int nb_char)
 	printf("_L   : %d\n", flag._L);
 	printf("conv : %c\n", flag.conv);
     printf("nb_char: %d\n", nb_char);
-}
+}*/
 
 int			is_option(char p)
 {
@@ -399,8 +399,10 @@ char	                *dectohexa(unsigned long long n, t_flag flags, int i)
 		tmp = n % 16;
 		if (tmp < 10)
 			seg[i] = tmp + 48;
-		else
+		else if (flags.conv = 'x')
 			seg[i] = tmp + 87;
+		else if (flags.conv = 'X')
+			seg[i] = tmp + 55;
 		i++;
 		n = n / 16;
 	}

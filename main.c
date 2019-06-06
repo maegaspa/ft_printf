@@ -42,6 +42,17 @@ int     main()
 	ft_printf("[%d]\n", ft_printf("|%20.ld et %.4hhi !|", 0x11ffaa147, (signed char)-8));
 	printf("[%d]\n", printf("|%u|", -100111));
 	ft_printf("[%d]\n", ft_printf("|%u|", -100111));
+	printf("[%d]\n", printf("|%+++d|", 534));
+	ft_printf("[%d]\n", ft_printf("|%+++d|", 534));
+	printf("[%d]\n", printf("|%.2i|", -10));
+	ft_printf("[%d]\n", ft_printf("|%.2i|", -10));
+	printf("[%d]\n", printf("|%0.23o|", -4440));
+	ft_printf("[%d]\n", ft_printf("|%0.23o|", -4440));
+	printf("[%d]\n", printf("|%o|", -4440));
+	ft_printf("[%d]\n", ft_printf("|%o|", -4440));
+	printf("[%d]\n", printf("|%o|", 25000));
+	ft_printf("[%d]\n", ft_printf("|%o|", 25000));
+	
 /*	printf("d : short = |%hd| long = |%ld| sshort = |%hhd| llong = |%lld|\n", 200000000000, 200000000000, 200000000000, 200000000000);
 	ft_printf("d : short = |%hd| long = |%ld| sshort = |%hhd| llong = |%lld|\n", 200000000000, 200000000000, 200000000000, 200000000000);
 	printf("\n");

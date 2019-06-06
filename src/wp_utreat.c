@@ -24,8 +24,8 @@ int             wp_utreat(t_flag flag, long long dig)
     nb_char = 0;
     i = -1;
     nbr = nbr_dig(dig, flag, nbr);
-    u_treat_1(flag, dig, nbr, nb_char);
-    u_treat_2(flag, dig, nbr, nb_char);
+    nb_char = u_treat_1(flag, dig, nbr, nb_char);
+    nb_char = u_treat_2(flag, dig, nbr, nb_char);
     /*putspace = flag.width - ft_strlen(nbr);
     if (flag.minus > 0 && flag.precision <= 1 && (!(dig == 0)))
         ft_putstr(nbr);
@@ -73,13 +73,11 @@ int             wp_utreat(t_flag flag, long long dig)
         }
     }*/
     if (flag.width > 0 && !flag.point)
-    {
-       u_treat_3(flag, dig, nbr, nb_char);
-    }
-    u_treat_4(flag, dig, nbr, nb_char);
-    u_treat_5(flag, dig, nbr, nb_char);
-    u_treat_6(flag, dig, nbr, nb_char);
-    u_treat_7(flag, dig, nbr, nb_char);
+       nb_char = u_treat_3(flag, dig, nbr, nb_char);
+    nb_char = u_treat_4(flag, dig, nbr, nb_char);
+    nb_char = u_treat_5(flag, dig, nbr, nb_char);
+    nb_char = u_treat_6(flag, dig, nbr, nb_char);
+    nb_char = u_treat_7(flag, dig, nbr, nb_char);
     /*if (flag.width > 0 && flag.point > 0 && !flag.precision && (!(dig == 0)))
     {
         if ((size_t)flag.width > ft_strlen(nbr) && !flag.minus)
@@ -164,7 +162,7 @@ int             wp_utreat(t_flag flag, long long dig)
     return(ft_strlen(nbr) + nb_char);
 }
 
-void        u_treat_1(t_flag flag, long long dig, char *nbr, int nb_char)
+int        u_treat_1(t_flag flag, long long dig, char *nbr, int nb_char)
 {
     int putspace;
     int i;
@@ -189,7 +187,7 @@ void        u_treat_1(t_flag flag, long long dig, char *nbr, int nb_char)
     }
 }
 
-void        u_treat_2(t_flag flag, long long dig, char *nbr, int nb_char)
+int        u_treat_2(t_flag flag, long long dig, char *nbr, int nb_char)
 {
     int putspace;
     int i;
@@ -211,7 +209,7 @@ void        u_treat_2(t_flag flag, long long dig, char *nbr, int nb_char)
     }
 }
 
-void        u_treat_3(t_flag flag, long long dig, char *nbr, int nb_char)
+int        u_treat_3(t_flag flag, long long dig, char *nbr, int nb_char)
 {
     int putspace;
     int i;
@@ -239,7 +237,7 @@ void        u_treat_3(t_flag flag, long long dig, char *nbr, int nb_char)
     }
 }
 
-void        u_treat_4(t_flag flag, long long dig, char *nbr, int nb_char)
+int        u_treat_4(t_flag flag, long long dig, char *nbr, int nb_char)
 {
     int putspace;
     int i;
@@ -261,7 +259,7 @@ void        u_treat_4(t_flag flag, long long dig, char *nbr, int nb_char)
     }
 }
 
-void        u_treat_5(t_flag flag, long long dig, char *nbr, int nb_char)
+int        u_treat_5(t_flag flag, long long dig, char *nbr, int nb_char)
 {
     int putspace;
     int i;
@@ -303,9 +301,10 @@ int         u_treat_6(t_flag flag, long long dig, char *nbr, int nb_char)
         return (ft_strlen(nbr) + nb_char);
     else
         ft_putstr(nbr);
+	return (nb_char);
 }
 
-void        u_treat_7(t_flag flag, long long dig, char *nbr, int nb_char)
+int        u_treat_7(t_flag flag, long long dig, char *nbr, int nb_char)
 {
     int putspace;
     int i;

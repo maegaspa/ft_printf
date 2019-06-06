@@ -30,9 +30,9 @@ int			wp_dtreat(t_flag flag, long long dig)
 	nb_char = 0;
     i = -1;
     len = nbr_dig(dig, flag, len);
-    d_treat_1(flag, dig, len, nb_char);
-    d_treat_2(flag, dig, len, nb_char);
-    d_treat_3(flag, dig, len, nb_char);
+    nb_char = d_treat_1(flag, dig, len, nb_char);
+    nb_char = d_treat_2(flag, dig, len, nb_char);
+    nb_char = d_treat_3(flag, dig, len, nb_char);
     /*if (flag.minus > 0 && flag.precision < 1 && (!(dig == 0)))
         ft_putstr(len);
     putspace = flag.width - ft_strlen(len);
@@ -99,10 +99,12 @@ int			wp_dtreat(t_flag flag, long long dig)
             }
         }
     }*/
+    if (flag.plus > 0 && !flag.precision && !flag.width && dig >= 0)
+        nb_char = char_treat('+', nb_char);
 	if (flag.width && flag.point && flag.precision)
 	{
-        d_treat_4(flag, dig, len, nb_char);
-        d_treat_5(flag, dig, len, nb_char);
+        nb_char = d_treat_4(flag, dig, len, nb_char);
+        nb_char = d_treat_5(flag, dig, len, nb_char);
 		/*putspace = flag.width - flag.precision;
 		if (flag.minus > 0 && (!(dig < 0)) && flag.width > flag.precision)
 		{	
@@ -160,8 +162,8 @@ int			wp_dtreat(t_flag flag, long long dig)
         nb_char++;
         return (ft_strlen(len) + nb_char);
     }*/
-    d_treat_6(flag, dig, len, nb_char);
-    d_treat_7(flag, dig, len, nb_char);
+    nb_char = d_treat_6(flag, dig, len, nb_char);
+    nb_char = d_treat_7(flag, dig, len, nb_char);
     /*if (dig == 0 && (flag.width || flag.point))
         return (ft_strlen(len) + nb_char);
     else if (flag.minus > 0 && !flag.precision)
@@ -177,7 +179,7 @@ int			wp_dtreat(t_flag flag, long long dig)
 }
 
 
-void        d_treat_1(t_flag flag, long long dig, char *len, int nb_char)
+int        d_treat_1(t_flag flag, long long dig, char *len, int nb_char)
 {
     int     i;
     int     putspace;
@@ -185,21 +187,22 @@ void        d_treat_1(t_flag flag, long long dig, char *len, int nb_char)
     i = -1;
     putspace = 0;
     if (flag.minus > 0 && flag.precision < 1 && (!(dig == 0)))
-        ft_putstr(len);
+		ft_putstr(len);
     putspace = flag.width - ft_strlen(len);
     if (flag.plus > 0 && ((flag.width > 0 && flag.point > 0 && flag.precision >= 0 && flag.precision > flag.width) || (!flag.width && flag.point > 0)) && dig >= 0)
-        nb_char += char_treat('+', nb_char);
+        nb_char = char_treat('+', nb_char);
     if (flag.space > 0 && flag.precision >= 0 && !flag.plus && flag.width <= ft_strlen(len))
-        nb_char += char_treat(' ', nb_char);
+        nb_char = char_treat(' ', nb_char);
     if (dig == 0 && flag.width & flag.point)
     {
         if ((size_t)flag.width > 0)
             while (++i < (size_t)flag.width)
-               nb_char += char_treat(' ', nb_char);
+               nb_char = char_treat(' ', nb_char);
     }
+	return (nb_char);
 }
 
-void        d_treat_2(t_flag flag, long long dig, char *len, int nb_char)
+int        d_treat_2(t_flag flag, long long dig, char *len, int nb_char)
 {
     int     i;
     int     putspace;
@@ -213,19 +216,20 @@ void        d_treat_2(t_flag flag, long long dig, char *len, int nb_char)
         if ((size_t)flag.width > ft_strlen(len))
         {
             if (dig < 0)
-                nb_char += char_treat('-', nb_char);
+                nb_char = char_treat('-', nb_char);
             while (++i < putspace)
             {
                 if (flag.zero > 0 && !flag.point)
-                    nb_char += char_treat('0', nb_char);
+                    nb_char = char_treat('0', nb_char);
                 else
-                    nb_char += char_treat(' ', nb_char);
+                    nb_char = char_treat(' ', nb_char);
             }
         }
     }
+	return (nb_char);
 }
 
-void        d_treat_3(t_flag flag, long long dig, char *len, int nb_char)
+int        d_treat_3(t_flag flag, long long dig, char *len, int nb_char)
 {
     int     putspace;
     int     i;
@@ -236,25 +240,21 @@ void        d_treat_3(t_flag flag, long long dig, char *len, int nb_char)
     {
         putspace = flag.precision - ft_strlen(len);
         if (is_minus(len) == 1 && flag.precision > 0)
-        {
-            len[0] = len[1];
-            len[1] = '\0';
-            nb_char += char_treat('-', nb_char);
-        }
+            nb_char = char_treat('-', nb_char);
         if (dig < 0)
             putspace += 1;
         if ((size_t)flag.precision > ft_strlen(len))
             while (++i < putspace)
-				nb_char += char_treat('0', nb_char);
+				nb_char = char_treat('0', nb_char);
     }
+	return (nb_char);
 }
 
-void        d_treat_4(t_flag flag, long long dig, char *len, int nb_char)
+int        d_treat_4(t_flag flag, long long dig, char *len, int nb_char)
 {
     int     putspace;
     int     i;
 
-    putspace = 0;
     i = -1;
     putspace = flag.width - flag.precision;
 	if (flag.minus > 0 && (!(dig < 0)) && flag.width > flag.precision)
@@ -266,7 +266,7 @@ void        d_treat_4(t_flag flag, long long dig, char *len, int nb_char)
     {
         len[0] = len[1];
         len[1] = '\0';
-        nb_char += char_treat('-', nb_char);
+        nb_char = char_treat('-', nb_char);
     }
     if (flag.plus > 0 || flag.minus > 0)
         putspace -= 1;
@@ -274,10 +274,11 @@ void        d_treat_4(t_flag flag, long long dig, char *len, int nb_char)
         len[0] = '\0';
 	if ((size_t)flag.width > ft_strlen(len) && dig > 0)
 		while (++i < putspace)
-			nb_char += char_treat(' ', nb_char);
+			nb_char = char_treat(' ', nb_char);
+	return (nb_char);
 }
 
-void        d_treat_5(t_flag flag, long long dig, char *len, int nb_char)
+int        d_treat_5(t_flag flag, long long dig, char *len, int nb_char)
 {
     int     putspace;
     int     i;
@@ -287,24 +288,25 @@ void        d_treat_5(t_flag flag, long long dig, char *len, int nb_char)
     {
         putspace = flag.width - flag.precision - 1;
         while (++i < putspace)
-            nb_char += char_treat(' ', nb_char);
+            nb_char = char_treat(' ', nb_char);
     }
     if (flag.plus > 0)
-        nb_char += char_treat('+', nb_char);
+        nb_char = char_treat('+', nb_char);
     putspace = flag.precision - ft_strlen(len);
     i = -1;
 	if ((size_t)flag.precision > ft_strlen(len))
         while (++i < putspace)
-			nb_char += char_treat('0', nb_char);
+			nb_char = char_treat('0', nb_char);
     if (dig < 0 && flag.precision && flag.width && flag.point)
     {
         putspace = flag.width - ft_strlen(len) - flag.precision;
         ft_putstr(len);
         i = -1;
-        if ((size_t)flag.width > ft_strlen(len))   
+        if ((size_t)flag.width > ft_strlen(len))
 			while (++i < putspace)
-			    nb_char += char_treat(' ', nb_char);
+			    nb_char = char_treat(' ', nb_char);
     }
+	return (nb_char);
 }
 
 int        d_treat_6(t_flag flag, long long dig, char *len, int nb_char)
@@ -312,9 +314,9 @@ int        d_treat_6(t_flag flag, long long dig, char *len, int nb_char)
     if (dig == 0 && flag.width == 0 && flag.precision > 0)
     {
         len[0] = '\0';
-        nb_char += char_treat('0', nb_char);
-        return (ft_strlen(len) + nb_char);
+        nb_char = char_treat('0', nb_char);
     }
+	return (nb_char);
 }
 
 int         d_treat_7(t_flag flag, long long dig, char *len, int nb_char)
@@ -330,9 +332,10 @@ int         d_treat_7(t_flag flag, long long dig, char *len, int nb_char)
         return (ft_strlen(len) + nb_char);
     else if (dig < 0 && flag.precision && flag.width && flag.point)
         return (ft_strlen(len) + nb_char);
-    else if (dig < 0 && !flag.precision && flag.width)
+    else if (dig < 0 && ((!flag.precision && flag.width) || (flag.precision && !flag.width)))
         while(len[i++] != '\0')
             ft_putchar(len[i]);
     else
         ft_putstr(len);
+	return (nb_char);
 }
