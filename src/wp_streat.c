@@ -15,9 +15,14 @@
 
 static int	ft_printnull(t_flag flag, char *string)
 {
-	if (string || !flag.point || !flag.precision)
+	if (string)// || !flag.point || !flag.precision)
 		return (0);
 	//write(1, "(null)", flag.precision): affiche un cara imaginaire lors du depassement
+	if (!flag.precision)
+	{
+		ft_putstr("(null)");
+		return (6);
+	}
 	ft_putchar('(');
 	if (flag.precision >= 2)
 		ft_putchar('n');
@@ -42,6 +47,7 @@ int			wp_streat(t_flag flag, char *string) //traiter une option s
     i = 0;
 	putspace = (string) ? flag.width - ft_strlen(string) : flag.width;
     putspace = (string && flag.point && flag.precision < ft_strlen(string)) ? flag.width - flag.precision : putspace;
+	putspace = (!string && !flag.point && flag.width) ? flag.width - 6 : putspace;
 	if (!flag.point && flag.width <= ft_strlen(string))
 		putspace = 0;
 	// GERER AJOUT DEVANT STRING
@@ -89,8 +95,9 @@ int			wp_streat(t_flag flag, char *string) //traiter une option s
 		while (string && i < ft_strlen(string) && i < flag.precision)
 			ft_putchar(string[i++]);
 		nb_char += i;
-		nb_char += ft_printnull(flag, string);
 	}
+	if ((flag.point && flag.precision > 0) || (!flag.point && !flag.precision))
+		nb_char += ft_printnull(flag, string);
 	if (!flag.point)
 	{	
 		ft_putstr(string);
@@ -103,9 +110,8 @@ int			wp_streat(t_flag flag, char *string) //traiter une option s
         if (!string || (!flag.precision && (size_t)flag.width > ft_strlen(string)))
         {
             while (i < putspace)
-            {
-                ft_putchar(' ');
-                nb_char++;
+			{
+                nb_char += ft_putchar_add(' ');
 				i++;
             }
         }

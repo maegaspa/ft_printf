@@ -13,34 +13,28 @@
 
 #include "../includes/printf.h"
 
-int			wp_ctreat(t_flag flag, int size, int c)
+int			wp_ctreat(t_flag flag, int c)
 {
-	int putspace;
 	int nb_char;
 	int i;
+    unsigned char letter;
 
-	i = 0;
+    letter = (unsigned char)c;
+	i = 1;
 	nb_char = 0;
-    putspace = size - 1;
-	if (flag.width > 0 && flag.point == 0)
+	if (flag.minus)
+        ft_putchar(letter);
+	if (flag.width && !flag.point)
 	{
-		if (size > 1)
-		{
-            while (++i < putspace)
-            {
-                if (flag.zero > 0)
-                { 
-                    ft_putchar('0');
-                    nb_char++;
-                }
-                else
-                {
-                    ft_putchar(' ');
-                    nb_char++;
-                }
-            }
+        while (i++ < flag.width)
+        {
+        	if (flag.zero)
+				nb_char += ft_putchar_add('0');
+            else
+                nb_char += ft_putchar_add(' ');
         }
     }
-    ft_putchar(c);
+    if (!flag.minus)
+        ft_putchar(letter);
     return (nb_char + 1);
 }
