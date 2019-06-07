@@ -302,6 +302,7 @@ int        ox_treat_3(t_flag flag, long long dig, char *nbr, int nb_char)
             while (++i < putspace)
                 nb_char = char_treat(' ', nb_char);
     }
+    return (nb_char);
 }
 
 int        ox_treat_4(t_flag flag, long long dig, char *nbr, int nb_char)

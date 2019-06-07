@@ -185,6 +185,7 @@ int        u_treat_1(t_flag flag, long long dig, char *nbr, int nb_char)
             while (++i < putspace)
                 nb_char += char_treat('0', nb_char);
     }
+    return (nb_char);
 }
 
 int        u_treat_2(t_flag flag, long long dig, char *nbr, int nb_char)
@@ -207,6 +208,7 @@ int        u_treat_2(t_flag flag, long long dig, char *nbr, int nb_char)
         while (++i < putspace)
             nb_char += char_treat('0', nb_char);
     }
+     return (nb_char);
 }
 
 int        u_treat_3(t_flag flag, long long dig, char *nbr, int nb_char)
@@ -235,6 +237,7 @@ int        u_treat_3(t_flag flag, long long dig, char *nbr, int nb_char)
                 nb_char += char_treat(' ', nb_char);
         }        
     }
+    return (nb_char);
 }
 
 int        u_treat_4(t_flag flag, long long dig, char *nbr, int nb_char)
@@ -257,6 +260,7 @@ int        u_treat_4(t_flag flag, long long dig, char *nbr, int nb_char)
             while (++i < putspace)
                 nb_char += char_treat('0', nb_char);
     }
+    return (nb_char);
 }
 
 int        u_treat_5(t_flag flag, long long dig, char *nbr, int nb_char)
@@ -318,4 +322,5 @@ int        u_treat_7(t_flag flag, long long dig, char *nbr, int nb_char)
             while (++i < putspace)
                 nb_char += char_treat(' ', nb_char);
     }
+    return (nb_char);
 }
