@@ -338,7 +338,7 @@ int        ox_treat_5(t_flag flag, long long dig, char *nbr, int nb_char)
 
     putspace = 0;
     i = - 1;
-    if (flag.width >= 0 && flag.point && flag.precision)
+    if (flag.point && flag.precision)
 	{
 		putspace = flag.width - flag.precision - ft_strlen(nbr) + 1;
         if (flag.zero && flag.width > flag.precision)

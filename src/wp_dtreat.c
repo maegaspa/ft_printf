@@ -189,9 +189,9 @@ int        d_treat_1(t_flag flag, long long dig, char *len, int nb_char)
     if (flag.minus > 0 && flag.precision < 1 && (!(dig == 0)))
 		ft_putstr(len);
     putspace = flag.width - ft_strlen(len);
-    if (flag.plus > 0 && ((flag.width > 0 && flag.point > 0 && flag.precision >= 0 && flag.precision > flag.width) || (!flag.width && flag.point > 0)) && dig >= 0)
+    if (flag.plus > 0 && ((flag.width > 0 && flag.point > 0 && flag.precision > flag.width) || (!flag.width && flag.point > 0)) && dig >= 0)
         nb_char = char_treat('+', nb_char);
-    if (flag.space > 0 && flag.precision >= 0 && !flag.plus && flag.width <= ft_strlen(len))
+    if (flag.space > 0 && !flag.plus && flag.width <= ft_strlen(len))
         nb_char = char_treat(' ', nb_char);
     if (dig == 0 && flag.width & flag.point)
     {
