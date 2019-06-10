@@ -345,7 +345,7 @@ int        ox_treat_5(t_flag flag, long long dig, char *nbr, int nb_char)
             putspace = flag.width - ft_strlen(nbr);
         if (flag.hashtag > 0)
             putspace -= 2;
-		if ((size_t)flag.width > ft_strlen(nbr)) // pitetre
+		if ((size_t)flag.width > ft_strlen(nbr))
 			while (++i < putspace)
 				nb_char = char_treat(' ', nb_char);
 		putspace = flag.precision - ft_strlen(nbr);
@@ -386,6 +386,8 @@ int            ox_treat_6(t_flag flag, long long dig, char *nbr, int nb_char)
 
 int         ox_treat_7(t_flag flag, long long dig, char *nbr, int nb_char)
 {
+    if (dig == 0 && flag.hashtag && !flag.precision && !flag.zero)
+        nbr[0] = '\0';
     if (flag.minus > 0 && flag.precision < 1 && (!(dig == 0)))
         return (nb_char);
     else if (dig == 0 && !flag.precision && !flag.point)
@@ -413,12 +415,12 @@ int        ox_treat_8(t_flag flag, long long dig, char *nbr, int nb_char)
             while (++i < putspace)
                 nb_char = char_treat(' ', nb_char);
     }
-    if (flag.width > 0 && !flag.point && !flag.precision && flag.minus > 0)
+   /* if (flag.width > 0 && !flag.point && !flag.precision && flag.minus > 0)
     {
         putspace = flag.width - ft_strlen(nbr);
         if ((size_t)flag.width > ft_strlen(nbr))
             while (++i < putspace)
                 nb_char = char_treat(' ', nb_char);      
-    }
+    }*/
 	return (nb_char);
 }

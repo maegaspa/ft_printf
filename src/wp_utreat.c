@@ -16,13 +16,11 @@
 int             wp_utreat(t_flag flag, long long dig)
 {
     int     putspace;
-    int     i;
 	int		nb_char;
     char    *nbr;
 
     putspace = 0;
     nb_char = 0;
-    i = -1;
     nbr = nbr_dig(dig, flag, nbr);
     nb_char = u_treat_1(flag, dig, nbr, nb_char);
     nb_char = u_treat_2(flag, dig, nbr, nb_char);
@@ -245,7 +243,7 @@ int        u_treat_4(t_flag flag, long long dig, char *nbr, int nb_char)
     int putspace;
     int i;
 
-    putspace = 0;
+    putspace = flag.width - ft_strlen(nbr);
     i = -1;
     if (flag.width > 0 && flag.point > 0 && !flag.precision && (!(dig == 0)))
     {
@@ -272,7 +270,7 @@ int        u_treat_5(t_flag flag, long long dig, char *nbr, int nb_char)
     putspace = 0;
     if (flag.width && flag.point && flag.precision)
 	{
-		putspace = flag.width - flag.precision; //- ft_strlen(nbr);
+		putspace = flag.width - flag.precision;
 		if ((size_t)flag.width > ft_strlen(nbr))
 			while (++i < putspace)
 				nb_char = char_treat(' ', nb_char);
