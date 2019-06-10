@@ -290,7 +290,7 @@ int         resolve_option(char *str, va_list ap, t_flag flag, int nb_char)
 	if (flag.conv == 'c')
 	{
 		out.integ = va_arg(ap, int);
-        nb_char = wp_ctreat(flag, out.integ);
+        nb_char += wp_ctreat(flag, out.integ);
 	}
 	if (flag.conv == 'x' || flag.conv == 'X' || flag.conv == 'o' || flag.conv == 'p')
 		nb_char = choose_xo(flag, ap, nb_char, out);
