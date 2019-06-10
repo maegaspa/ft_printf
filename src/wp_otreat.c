@@ -305,11 +305,6 @@ int    o_treat_4(t_flag flag, long long dig, char *nbr, int nb_char)
     if ((size_t)flag.width > ft_strlen(nbr) && flag.minus)
         while (++i < putspace)
             nb_char = char_treat(' ', nb_char);
-    putspace = flag.width - ft_strlen(nbr);
-    if (dig == 0)
-        putspace = flag.width;
-    if (flag.hashtag > 0)
-        putspace -= 1;
 	return (nb_char);
 }
 
@@ -318,10 +313,14 @@ int        o_treat_5(t_flag flag, long long dig, char *nbr, int nb_char)
     int putspace;
     int i;
 
-    putspace = 0;
+    putspace = flag.width - ft_strlen(nbr);
     i = -1;
     if ((size_t)flag.width > ft_strlen(nbr) && !flag.minus)
     {
+        if (dig == 0)
+            putspace = flag.width;
+        if (flag.hashtag > 0)
+            putspace -= 1;
         while (++i < putspace)
         {
             if (flag.point > 0 || flag.zero > 0)
@@ -339,7 +338,7 @@ int        o_treat_6(t_flag flag, long long dig, char *nbr, int nb_char)
     int i;
 
     i = -1;
-    putspace = 0;
+    putspace = flag.width - ft_strlen(nbr);
     if (flag.width > 0 && flag.point > 0 && !flag.precision && (!(dig == 0)))
     {
         if (flag.hashtag > 0)
@@ -407,16 +406,20 @@ int        o_treat_8(t_flag flag, long long dig, char *nbr, int nb_char)
 
 int         o_treat_9(t_flag flag, long long dig, char *nbr, int nb_char)
 {
+    if (dig == 0 && !flag.point && !flag.precision && flag.width < 2 && !flag.space && !flag.hashtag)
+        nb_char = char_treat('0', nb_char);
+    if (dig == 0)
+        nbr[0] = '\0';
     if (flag.width > 0 && dig == 0 && flag.point && !flag.precision)
-        return(ft_strlen(nbr) + nb_char);
+        return(nb_char);
     else if (flag.precision > 0 && dig == 0 && flag.point && !flag.width)
-        return(ft_strlen(nbr) + nb_char);
+        return(nb_char);
     else if (dig == 0 && flag.point && !flag.precision && !flag.width)
-        return (0);
+        return (nb_char);
     else if (dig == 0 && !flag.precision && !flag.point)
-        return (ft_strlen(nbr) + nb_char);
+        return (nb_char);
     else if (flag.minus > 0 && flag.precision <= 1 && (!(dig == 0)))
-        return (ft_strlen(nbr) + nb_char);
+        return (nb_char);
     else
 		ft_putstr(nbr);
 	return (nb_char);

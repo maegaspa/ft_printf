@@ -290,7 +290,7 @@ int         resolve_option(char *str, va_list ap, t_flag flag, int nb_char)
 	if (flag.conv == 'c')
 	{
 		out.integ = va_arg(ap, int);
-        nb_char = wp_ctreat(flag, out.precis, out.integ);
+        nb_char = wp_ctreat(flag, out.integ);
 	}
 	if (flag.conv == 'x' || flag.conv == 'X' || flag.conv == 'o' || flag.conv == 'p')
 		nb_char = choose_xo(flag, ap, nb_char, out);
@@ -399,9 +399,9 @@ char	                *dectohexa(unsigned long long n, t_flag flags, int i)
 		tmp = n % 16;
 		if (tmp < 10)
 			seg[i] = tmp + 48;
-		else if (flags.conv = 'x')
+		else if (flags.conv == 'x')
 			seg[i] = tmp + 87;
-		else if (flags.conv = 'X')
+		else if (flags.conv == 'X')
 			seg[i] = tmp + 55;
 		i++;
 		n = n / 16;
