@@ -6,7 +6,7 @@
 /*   By: maegaspa <maegaspa@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/09 13:36:54 by maegaspa     #+#   ##    ##    #+#       */
-/*   Updated: 2019/06/01 14:05:03 by maegaspa    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/06/11 17:34:36 by maegaspa    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -52,6 +52,60 @@ int     main()
 	ft_printf("[%d]\n", ft_printf("|%o|", -4440));
 	printf("[%d]\n", printf("|%o|", 25000));
 	ft_printf("[%d]\n", ft_printf("|%o|", 25000));
+	printf("[%d]\n", printf("|%-2i|", -7));
+	ft_printf("[%d]\n", ft_printf("|%-2i|", -7));
+	printf("[%d]\n", printf("|%-3u|", 194));
+	ft_printf("[%d]\n", ft_printf("|%-3u|", 194));
+	printf("[%d]\n", printf("|%-12u|", 17894));
+	ft_printf("[%d]\n", ft_printf("|%-12u|", 17894));
+	printf("[%d]\n", printf("|%llu|", (unsigned long long)-12345612220));
+	ft_printf("[%d]\n", ft_printf("|%llu|", (unsigned long long)-12345612220));
+	printf("[%d]\n", printf("|%03o|", 0));
+	ft_printf("[%d]\n", ft_printf("|%03o|", 0));
+	printf("[%d]\n", printf("|%5d|", -741));
+	ft_printf("[%d]\n", ft_printf("|%5d|", -741));
+	printf("[%d]\n", printf("|%.d|", 0));
+	ft_printf("[%d]\n", ft_printf("|%.d|", 0));
+	printf("[%d]\n", printf("|%d|", 0));
+	ft_printf("[%d]\n", ft_printf("|%d|", 0));
+	printf("[%d]\n", printf("|%#o|", 0));
+	ft_printf("[%d]\n", ft_printf("|%#o|", 0));
+	printf("[%d]\n", printf("|%llo|", (unsigned long long)-127));
+	ft_printf("[%d]\n", ft_printf("|%llo|", (unsigned long long)-127));
+	printf("[%d]\n", printf("|hello % .d this is a test|", 0));
+	ft_printf("[%d]\n", ft_printf("|hello % .d this is a test|", 0));
+	printf("[%d]\n", printf("|%o|", 0));
+	ft_printf("[%d]\n", ft_printf("|%o|", 0));
+	printf("[%d]\n", printf("|toto et %02u coco %-5lu mimi|", 19, (unsigned long)-20));
+	ft_printf("[%d]\n", ft_printf("|toto et %02u coco %-5lu mimi|", 19, (unsigned long)-20));
+	printf("[%d]\n", printf("|%1o|", 0));
+	ft_printf("[%d]\n", ft_printf("|%1o|", 0));
+	printf("[%d]\n", printf("|%01o|", 0));
+	ft_printf("[%d]\n", ft_printf("|%01o|", 0));
+	printf("[%d]\n", printf("|%20x|", 0x123456bc));
+	ft_printf("[%d]\n", ft_printf("|%20x|", 0x123456bc));
+	printf("[%d]\n", printf("|%0#10.0x %0#x|", 12345, 0));
+	ft_printf("[%d]\n", ft_printf("|%0#10.0x %0#x|", 12345, 0));
+	printf("[%d]\n", printf("|%-6x|", 0xdd66));
+	ft_printf("[%d]\n", ft_printf("|%-6x|", 0xdd66));
+	printf("[%d]\n", printf("|toto %##.0xet %#.X%###.1x|", 0, 0, 0));
+	ft_printf("[%d]\n", ft_printf("|toto %##.0xet %#.X%###.1x|", 0, 0, 0));
+	printf("[%d]\n", printf("|%--.4u|", -12));
+	ft_printf("[%d]\n", ft_printf("|%--.4u|", -12));
+	printf("[%d]\n", printf("|%u|", 0));
+	ft_printf("[%d]\n", ft_printf("|%u|", 0));
+	printf("[%d]\n", printf("|%4u|", 1));
+	ft_printf("[%d]\n", ft_printf("|%4u|", 1));
+	printf("[%d]\n", printf("|%04d|", 0));
+	ft_printf("[%d]\n", ft_printf("|%04d|", 0));
+	printf("[%d]\n", printf("|%-12i et %--2.4s %24s !\n|", 0, NULL, "coco"));
+	ft_printf("[%d]\n", ft_printf("|%-12i et %--2.4s %24s !\n|", 0, NULL, "coco"));
+	printf("[%d]\n", printf("|%-12d|", 0));
+	ft_printf("[%d]\n", ft_printf("|%-12d|", 0));
+	printf("[%d]\n", printf("|coco et %-#-#--24O titi%#012o|", 12, -874));
+	ft_printf("[%d]\n", ft_printf("|coco et %-#-#--24O titi%#012o|", 12, -874));
+	printf("[%d]\n", printf("|t%04.2o%#2oet %#-8.3o titi|", 0, 0, 0));
+	ft_printf("[%d]\n", ft_printf("|t%04.2o%#2oet %#-8.3o titi|", 0, 0, 0));
 	
 /*	printf("d : short = |%hd| long = |%ld| sshort = |%hhd| llong = |%lld|\n", 200000000000, 200000000000, 200000000000, 200000000000);
 	ft_printf("d : short = |%hd| long = |%ld| sshort = |%hhd| llong = |%lld|\n", 200000000000, 200000000000, 200000000000, 200000000000);

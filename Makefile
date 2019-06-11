@@ -3,10 +3,10 @@
 #                                                               /              #
 #    Makefile                                         .::    .:/ .      .::    #
 #                                                  +:+:+   +:    +:  +:+:+     #
-#    By: hmichel <hmichel@student.le-101.fr>        +:+   +:    +:    +:+      #
+#    By: maegaspa <maegaspa@student.le-101.fr>      +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2019/02/06 16:29:54 by maegaspa     #+#   ##    ##    #+#        #
-#    Updated: 2019/06/11 13:02:09 by hmichel     ###    #+. /#+    ###.fr      #
+#    Updated: 2019/06/11 17:34:38 by maegaspa    ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -27,6 +27,7 @@ FILES = src/nsm\
 		src/wp_utreat\
 		src/wp_ctreat\
 		src/ft_atoi_2\
+		src/wp_ptreat\
 		
 
 SRC = $(addsuffix .c, $(FILES))

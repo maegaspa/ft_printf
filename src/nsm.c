@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   nsm.c                                            .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: hmichel <hmichel@student.le-101.fr>        +:+   +:    +:    +:+     */
+/*   By: maegaspa <maegaspa@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/13 16:07:29 by maegaspa     #+#   ##    ##    #+#       */
-/*   Updated: 2019/06/11 13:03:31 by hmichel     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/06/11 17:34:37 by maegaspa    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -322,6 +322,11 @@ int        choose_dig(t_flag flag, int nb_char, va_list ap, t_out out)
 	{
 		out.ld = va_arg(ap, long long);
 		nb_char += wp_dtreat(flag, out.ld);
+	}
+	else if (flag.conv == 'u' && !flag._h && !flag._l)
+	{
+		out.uns_integ = va_arg(ap, unsigned int);
+		nb_char += wp_utreat(flag, out.uns_integ);
 	}
 	else
 	{

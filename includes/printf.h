@@ -6,7 +6,7 @@
 /*   By: maegaspa <maegaspa@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/17 13:23:57 by maegaspa     #+#   ##    ##    #+#       */
-/*   Updated: 2019/06/03 16:09:54 by maegaspa    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/06/11 17:34:38 by maegaspa    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -148,6 +148,7 @@ int                       	u_treat_4(t_flag flag, long long dig, char *nbr, int 
 int                       	u_treat_5(t_flag flag, long long dig, char *nbr, int nb_char);
 int                         u_treat_6(t_flag flag, long long dig, char *nbr, int nb_char);
 int                       	u_treat_7(t_flag flag, long long dig, char *nbr, int nb_char);
+int                         wp_ptreat(void *p, t_flag flag);
 //int			                wp_ddtreat(t_flag flag, t_out out);
 //int                         ft_printf(const char *format,
 //        ...) __attribute__((format(printf,1,2)));
