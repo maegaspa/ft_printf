@@ -20,9 +20,17 @@
 # include <stdio.h>
 # include <stdlib.h>
 
+typedef	struct				s_float
+{
+	char					*digit;
+	char					*temp;
+	int						preci;
+	int						i;
+	long					enti;
+}							t_float;
+
 typedef struct              s_flag
 {
-    //unsigned int            percent;
     unsigned int            hashtag;
     unsigned int            zero;
     unsigned int            plus;
@@ -77,13 +85,13 @@ int                         resolve_option(char *str, va_list ap, t_flag flag, i
 unsigned int                x_treat(unsigned int out, t_flag flag, char *str);
 char                        s_treat(const char *out, t_flag flag, char *str);
 char                        *flag_boi(t_flag flag, char *str);
-int                         wp_streat(t_flag flag, char *pute);
+int                         wp_streat(t_flag flag, va_list string);
 int                         wp_dtreat(t_flag flag, long long dig);
-int                       print_help(t_flag flag, int nb_char);
+void						print_help(t_flag flag, int nb_char);
 char                        *ft_itoa_base(int value, int base);
 int		                    ft_atoibis(char *s);
 char                        *ft_strcaps(char *str);
-int                         wp_ctreat(t_flag flag, int c);
+int                         wp_ctreat(t_flag flag, va_list ap);
 int                         wp_oxtreat(t_flag flag, long long dig);
 //char                        *ft_wichf(char wichf, char *str, int i, t_flag flag);
 void	                    ft_putncaract(char c, int size);
@@ -106,6 +114,8 @@ char	                    *dectoocta(unsigned long n, t_flag flags);
 int                         char_treat(char c, int nb_char);
 int				            ft_putchar_add(char c);
 int                         multichar_treat(char *c, int nb_char);
+int							wp_ftreat(t_flag flag, double nb);
+double long					ft_pow10(double long f, int exp);
 int							d_treat_1(t_flag flag, long long dig, char *len, int nb_char);
 int							d_treat_2(t_flag flag, long long dig, char *len, int nb_char);
 int							d_treat_3(t_flag flag, long long dig, char *len, int nb_char);

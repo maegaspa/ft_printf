@@ -3,10 +3,10 @@
 #                                                               /              #
 #    Makefile                                         .::    .:/ .      .::    #
 #                                                  +:+:+   +:    +:  +:+:+     #
-#    By: maegaspa <maegaspa@student.le-101.fr>      +:+   +:    +:    +:+      #
+#    By: hmichel <hmichel@student.le-101.fr>        +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2018/10/04 18:45:14 by maegaspa     #+#   ##    ##    #+#        #
-#    Updated: 2019/05/15 15:05:02 by maegaspa    ###    #+. /#+    ###.fr      #
+#    Updated: 2019/06/11 09:51:27 by hmichel     ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -48,6 +48,7 @@ ft_strequ\
 ft_striter\
 ft_striteri\
 ft_strjoin\
+ft_strjoin_free\
 ft_strlcat\
 ft_strlen\
 ft_strmap\

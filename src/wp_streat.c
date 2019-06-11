@@ -37,12 +37,14 @@ static int	ft_printnull(t_flag flag, char *string)
 	return ((flag.precision <= 6) ? flag.precision : 6);
 }
 
-int			wp_streat(t_flag flag, char *string) //traiter une option s
+int			wp_streat(t_flag flag, va_list ap) //traiter une option s
 {
     int		putspace;
     size_t	i;
     int		nb_char;
+	char	*string;
 
+	string = va_arg(ap, char*);
     nb_char = 0;
     i = 0;
 	putspace = (string) ? flag.width - ft_strlen(string) : flag.width;

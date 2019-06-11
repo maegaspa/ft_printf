@@ -3,10 +3,10 @@
 #                                                               /              #
 #    Makefile                                         .::    .:/ .      .::    #
 #                                                  +:+:+   +:    +:  +:+:+     #
-#    By: maegaspa <maegaspa@student.le-101.fr>      +:+   +:    +:    +:+      #
+#    By: hmichel <hmichel@student.le-101.fr>        +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2019/02/06 16:29:54 by maegaspa     #+#   ##    ##    #+#        #
-#    Updated: 2019/06/01 13:46:12 by maegaspa    ###    #+. /#+    ###.fr      #
+#    Updated: 2019/06/11 13:02:09 by hmichel     ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -20,7 +20,6 @@ INC = /includes/printf.h
 
 FILES = src/nsm\
 		src/util\
-		src/wp_ftreat\
 		src/wp_streat\
 		src/wp_dtreat\
 		src/wp_otreat\

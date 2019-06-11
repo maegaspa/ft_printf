@@ -12,29 +12,35 @@
 /* ************************************************************************** */
 
 #include "../includes/printf.h"
+static void	ft_affich_letter(t_flag flag, unsigned char letter)
+{
+	if (flag.conv == 'c')
+		ft_putchar(letter);
+	else
+		ft_putchar('%');
+}
 
-int			wp_ctreat(t_flag flag, int c)
+int			wp_ctreat(t_flag flag, va_list ap)
 {
 	int nb_char;
 	int i;
     unsigned char letter;
 
-    letter = (unsigned char)c;
+	if (flag.conv == 'c')
+		i = va_arg(ap, int);
+    letter = (unsigned char)i;
 	i = 1;
 	nb_char = 0;
 	if (flag.minus)
-        ft_putchar(letter);
-	if (flag.width && !flag.point)
+        ft_affich_letter(flag, letter);
+    while (i++ < flag.width)
 	{
-        while (i++ < flag.width)
-        {
-        	if (flag.zero)
-				nb_char += ft_putchar_add('0');
-            else
-                nb_char += ft_putchar_add(' ');
-        }
+        if (flag.zero)
+			nb_char += ft_putchar_add('0');
+        else
+        	nb_char += ft_putchar_add(' ');
     }
     if (!flag.minus)
-        ft_putchar(letter);
+        ft_affich_letter(flag, letter);
     return (nb_char + 1);
 }

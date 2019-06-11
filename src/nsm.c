@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   nsm.c                                            .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: maegaspa <maegaspa@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: hmichel <hmichel@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/13 16:07:29 by maegaspa     #+#   ##    ##    #+#       */
-/*   Updated: 2019/06/03 15:12:30 by maegaspa    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/06/11 13:03:31 by hmichel     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -14,9 +14,9 @@
 #include "../includes/printf.h"
 #include <stdlib.h>
 
-/*void		print_help(t_flag flag, int nb_char)
+void		print_help(t_flag flag, int nb_char)
 {
-    printf("hash : %d\n", flag.hashtag);
+    printf("\nhash : %d\n", flag.hashtag);
     printf("preci: %d\n", flag.precision);
     printf("zero : %d\n", flag.zero);
     printf("minus: %d\n", flag.minus);
@@ -28,8 +28,8 @@
     printf("_h   : %d\n", flag._h);
 	printf("_L   : %d\n", flag._L);
 	printf("conv : %c\n", flag.conv);
-    printf("nb_char: %d\n", nb_char);
-}*/
+    printf("nb_char: %d\n\n", nb_char);
+}
 
 int			is_option(char p)
 {
@@ -74,10 +74,10 @@ t_out		out_init(void)
     return (out);
 }
 
-int			is_flag(char c)
+int			is_conv(char c)
 {
     if (c == 'c' || c == 's' || c == 'p' || c == 'd' || c == 'i' || c == 'o'
-		|| c == 'u' || c == 'x' || c == 'X' || c == 'f' || c == '\0')
+		|| c == 'u' || c == 'x' || c == 'X' || c == 'f' || c == '\0' || c == '%')
         return (1);
     return (0);
 }
@@ -111,21 +111,21 @@ int			parse(char *str, va_list ap)
 		}
 		if (str[compt.i] == '%' && (str[compt.i + 1] != '%' && str[compt.i + 1] != '\0'))
 		{
-			compt.j = compt.i;
+			compt.j = compt.i + 1;
 			compt.k = 0;
 			flags = flag_init(flags);
 			compt.num2 = ft_strnew(0);
-			while (!(is_flag(str[compt.j++]))) // Remplissage STRUCT FLAG
+			while (!(is_conv(str[compt.j]))) // Remplissage STRUCT FLAG
 			{
 				if (str[compt.j] == '#' && flags.hashtag < 1)
 					flags.hashtag++;
 				if (str[compt.j] == '+' && flags.plus < 1)
 					flags.plus++;
-				if (str[compt.j] == '-' && flags.minus < 1) //&& !is_flag(str[compt.j + 1]) && !ft_isdigit(str[compt.j - 1]))
+				if (str[compt.j] == '-' && flags.minus < 1) //&& !is_conv(str[compt.j + 1]) && !ft_isdigit(str[compt.j - 1]))
 					flags.minus++;
-				if (str[compt.j] == '0' && flags.zero < 1 && !is_flag(str[compt.j + 1]) && !ft_isdigit(str[compt.j - 1]))
+				if (str[compt.j] == '0' && flags.zero < 1 && !is_conv(str[compt.j + 1]) && !ft_isdigit(str[compt.j - 1]))
 					flags.zero++;
-				if (str[compt.j] == '.' && ((ft_isdigit(str[compt.j - 1]) || ft_isdigit(str[compt.j + 1])) || str[compt.j - 1] == ' ' || str[compt.j - 1] == '#' || str[compt.j - 1] == '+' || (str[compt.j - 1] == '%' && is_flag(str[compt.j + 1]))))
+				if (str[compt.j] == '.' && ((ft_isdigit(str[compt.j - 1]) || ft_isdigit(str[compt.j + 1])) || str[compt.j - 1] == ' ' || str[compt.j - 1] == '#' || str[compt.j - 1] == '+' || (str[compt.j - 1] == '%' && (is_conv(str[compt.j + 1]))))) //RAJOUT
 				{
 					flags.point++;
 					compt.k = compt.j;
@@ -138,17 +138,18 @@ int			parse(char *str, va_list ap)
 					flags._h++;
 				if (str[compt.j] == 'L' && flags._L < 1)
 					flags._L++;
-				//printf("%c", str[compt.j]);
+				//printf("\n%c\n", str[compt.j]);
+				compt.j++;
 			}
-			flags.conv = str[compt.j - 1];
-			if (!(compt.num = ft_strsub(str, compt.i, (compt.j - compt.i))))
+			flags.conv = str[compt.j];
+			if (!(compt.num = ft_strsub(str, compt.i, (compt.j - compt.i + 1))))
 				return (0);
 			if (flags.point)
-				if (!(compt.num2 = ft_strsub(str, compt.k + 1, (compt.j - compt.k - 1))))
+				if (!(compt.num2 = ft_strsub(str, compt.k + 1, (compt.j - compt.k))))
 					return (0);
 			flags.precision = ft_atoi_2(compt.num2); // Ajout PRECISION
 			flags.width = ft_atoi_2(compt.num); // Ajout LARGEUR
-			compt.i = compt.j - 1;
+			compt.i = compt.j;
 			//print_help(flags, compt.i);
 			nb_char = resolve_option(str, ap, flags, nb_char);
 		}
@@ -166,11 +167,11 @@ void		ft_setflag2(char *str, t_flag *flags, t_compt *compt)
 		flags->plus++;
 	if (str[compt->j] == '-' && flags->minus < 1)
 		flags->minus++;
-	if (str[compt->j] == '0' && flags->zero < 1 && !is_flag(str[compt->j + 1]) && !ft_isdigit(str[compt->j - 1]))
+	if (str[compt->j] == '0' && flags->zero < 1 && !is_conv(str[compt->j + 1]) && !ft_isdigit(str[compt->j - 1]))
 		flags->zero++;
 	if (str[compt->j] == '.' && ((ft_isdigit(str[compt->j - 1]) || ft_isdigit(str[compt->j + 1])) ||
 		str[compt->j - 1] == ' ' || str[compt->j - 1] == '#' || str[compt->j - 1] == '+' ||
-		(str[compt->j - 1] == '%' && is_flag(str[compt->j + 1]))))
+		(str[compt->j - 1] == '%' && is_conv(str[compt->j + 1]))))
 	{
 		flags->point++;
 		compt->k = compt->j;
@@ -190,7 +191,7 @@ int			ft_setflag(char *str, t_flag *flags, t_compt *compt)
 	compt->j = compt->i;
 	compt->k = 0;
 	compt->num2 = ft_strnew(0);
-	while (!(is_flag(str[compt->j++]))) // Remplissage STRUCT FLAG
+	while (!(is_conv(str[compt->j++]))) // Remplissage STRUCT FLAG
 		ft_setflag2(str, &flags, &compt);
 	flags->conv = str[compt->j - 1];
 	if (!(compt->num = ft_strsub(str, compt->i, (compt->j - compt->i))))
@@ -283,15 +284,17 @@ int         resolve_option(char *str, va_list ap, t_flag flag, int nb_char)
     if (flag.conv == 'd' || flag.conv == 'i' || flag.conv == 'u')
         nb_char = choose_dig(flag, nb_char, ap, out);
     if (flag.conv == 's')
+		nb_char += wp_streat(flag, ap);
+	if (flag.conv == 'c' || flag.conv == '%')
+        nb_char += wp_ctreat(flag, ap);
+	/*if (flag.conv == 'f')
 	{
-		out.string = va_arg(ap, char*);
-		nb_char += wp_streat(flag, out.string);
-	}
-	if (flag.conv == 'c')
-	{
-		out.integ = va_arg(ap, int);
-        nb_char += wp_ctreat(flag, out.integ);
-	}
+		if (flag._L)
+			out.doub = va_arg(ap, long double);
+		else
+			out.doub = va_arg(ap, double);
+		nb_char += wp_ftreat(flag, out.doub);
+	}*/
 	if (flag.conv == 'x' || flag.conv == 'X' || flag.conv == 'o' || flag.conv == 'p')
 		nb_char = choose_xo(flag, ap, nb_char, out);
     va_end(ap);

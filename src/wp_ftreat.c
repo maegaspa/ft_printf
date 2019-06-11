@@ -3,78 +3,73 @@
 /*                                                              /             */
 /*   wp_ftreat.c                                      .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: maegaspa <maegaspa@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: hmichel <hmichel@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/20 19:35:54 by hmichel      #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/30 12:59:38 by maegaspa    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/06/11 09:54:20 by hmichel     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
-#include "../includes/printf.h"
-#include <stdio.h>
 
-double long		ft_pow10(double long f, int exp)
+#include "../includes/printf.h"
+
+static char	*ft_rounded1(double flo, t_flag flag, int option, t_float sfloat)
 {
-	while (exp)
+	if ((long)flo > 5 || ((long)flo == 5 && (flo - (long)flo) > 0.0))
 	{
-		f = f * 10;
-		exp--;
+		sfloat.i = 1;
+		while (ft_strlen(sfloat.digit) >= sfloat.i)
+		{
+			if (ft_strlen(sfloat.digit) == sfloat.i &&
+				sfloat.digit[ft_strlen(sfloat.digit) - sfloat.i] == '9')
+				sfloat.enti += 1;
+			if (sfloat.digit[ft_strlen(sfloat.digit) - sfloat.i] != '9')
+			{
+				sfloat.digit[ft_strlen(sfloat.digit) - sfloat.i] += 1;
+				break ;
+			}
+			else if (sfloat.digit[ft_strlen(sfloat.digit) - sfloat.i] == '9')
+				sfloat.digit[ft_strlen(sfloat.digit) - sfloat.i] = '0';
+			sfloat.i++;
+		}
+		if (ft_strlen(sfloat.digit) == 0)
+			sfloat.enti += 1;
 	}
-	return (f);
+	sfloat.temp = ft_itoa_base(sfloat.enti, 10);
+	if (!option)
+		return (sfloat.digit);
+	return (sfloat.temp);
 }
 
-char			*ft_rounded(double flo, t_flag flag, int option)
+static char	*ft_rounded(double flo, t_flag flag, int option)
 {
-	char		*digit;
-	char		*temp;
-	int			preci;
-	int			i;
-	long		enti;
+	t_float		sfloat;
 
-	preci = flag.precision;
-	enti = (long)flo;
-	flo = flo - (double)enti;
-	if (!(digit = ft_strnew(0)))
+	sfloat.preci = flag.precision;
+	sfloat.enti = (long)flo;
+	flo = flo - (double)sfloat.enti;
+	if (!(sfloat.digit = ft_strnew(0)))
 		return (NULL);
-	while (preci--)
+	while (sfloat.preci--)
 	{
 		flo = flo * 10;
-		if (!(temp = ft_strjoin(digit, ft_itoa_base((long)flo, 10))))
+		sfloat.itoa = ft_itoa_base((long)flo, 10);
+		if (!(sfloat.temp = ft_strjoin_free(sfloat.digit,
+			sfloat.itoa)))
 			return (NULL);
 		flo = flo - (long)flo;
-		free(digit);
-		digit = ft_strdup(temp);
-		free(temp);
+		free(sfloat.digit);
+		sfloat.digit = ft_strdup(sfloat.temp);
+		free(sfloat.temp);
 	}
 	flo = ft_pow10(flo, 1);
-	if ((long)flo == 5 && (flag.precision == 1 || (flag.precision == 0 && flag.point == 1)) && (enti % 2 == 1)) //arrondi type banque tmtc la zeub ca nous connait
-		enti += 1;
-	if ((long)flo > 5 || ((long)flo == 5 && (flo - (long)flo) > 0.0)) // <=> flo >= 5
-	{
-		i = 1;
-		while (ft_strlen(digit) >= i)
-		{
-			if (ft_strlen(digit) == i && digit[ft_strlen(digit) - i] == '9')
-				enti += 1;
-			if (digit[ft_strlen(digit) - i] != '9')
-			{
-				digit[ft_strlen(digit) - i] += 1;
-				break;
-			}
-			else if (digit[ft_strlen(digit) - i] == '9')
-				digit[ft_strlen(digit) - i] = '0';
-			i++;
-		}
-		if (ft_strlen(digit) == 0)
-			enti += 1;
-	}
-	temp = ft_itoa_base(enti, 10);
-	if (!option)
-		return (digit);
-	return (temp);
+	if ((long)flo == 5 && (flag.precision == 1 || (flag.precision == 0 &&
+		flag.point == 1)) && (sfloat.enti % 2 == 1))
+		sfloat.enti += 1;
+	return (ft_rounded1(flo, flag, option, sfloat));
 }
 
-static	char	*ft_ftoa(double f, t_flag flag)
+static char	*ft_ftoa(double f, t_flag flag)
 {
 	char		*nb;
 	char		*temp;
@@ -101,20 +96,8 @@ static	char	*ft_ftoa(double f, t_flag flag)
 	return (nb);
 }
 
-int		wp_ftreat(t_flag flag, double nb)
+static	int	ft_print_before(t_flag flag, int putspace, int nb_char, double nb)
 {
-	int		nb_char;
-	char	*str;
-	int		putspace;
-
-	if (!flag.point)
-		flag.precision = 6;
-	str = ft_ftoa(nb, flag);
-	nb_char = 0;
-	putspace = (str) ? flag.width - ft_strlen(str) - flag.plus : flag.width - flag.plus;
-	if ((flag.hashtag && flag.point && !flag.precision) || flag.space)
-		putspace -= 1;
-	// AVANT NB
 	if (flag.space)
 		nb_char += ft_putchar_add(' ');
 	if (putspace > 0 && !flag.minus)
@@ -127,22 +110,39 @@ int		wp_ftreat(t_flag flag, double nb)
 				nb_char += ft_putchar_add(' ');
 		}
 	}
-	// PRINT NB
-	if (flag.plus) //pb de -0.0 et +0.0
+	if (flag.plus)
 	{
 		if (nb >= 0)
 			nb_char += ft_putchar_add('+');
 		if (nb < 0)
 			nb_char += ft_putchar_add('-');
 	}
+	return (nb_char);
+}
+
+int			wp_ftreat(t_flag flag, double nb)
+{
+	int		nb_char;
+	char	*str;
+	int		putspace;
+
+	if (!flag.point)
+		flag.precision = 6;
+	str = ft_ftoa(nb, flag);
+	nb_char = 0;
+	putspace = (str) ? flag.width - ft_strlen(str) - flag.plus :
+										flag.width - flag.plus;
+	if ((flag.hashtag && flag.point && !flag.precision) || flag.space)
+		putspace -= 1;
+	nb_char = ft_print_before(flag, putspace, nb_char, nb);
 	if (str)
 		nb_char += ft_strlen(str);
 	ft_putstr(str);
-	// APRES NB
 	if (flag.hashtag && flag.point && !flag.precision)
 		nb_char += ft_putchar_add('.');
-	if (putspace > 0 && flag.minus) // le flag '-' ecrase le flag '0'
+	if (putspace > 0 && flag.minus)
 		while (putspace--)
 			nb_char += ft_putchar_add(' ');
+	free(str);
 	return (nb_char);
 }
