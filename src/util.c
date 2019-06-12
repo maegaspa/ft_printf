@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   util.c                                           .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: maegaspa <maegaspa@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: hmichel <hmichel@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/30 15:47:32 by maegaspa     #+#   ##    ##    #+#       */
-/*   Updated: 2019/06/01 14:48:47 by maegaspa    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/06/12 19:14:38 by hmichel     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -39,6 +39,13 @@ int				ft_putchar_add(char c)
 {
 	write(1, &c, 1);
 	return (1);
+}
+
+int				ft_putstr_add(char const *str)
+{
+	if (str != NULL)
+		write(1, str, ft_strlen(str));
+	return (ft_strlen(str));
 }
 
 char            *ft_itoa_base(int value, int base)

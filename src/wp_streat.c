@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   wp_streat.c                                      .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: maegaspa <maegaspa@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: hmichel <hmichel@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/11 17:20:00 by hmichel      #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/30 12:59:54 by maegaspa    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/06/12 20:13:42 by hmichel     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -50,6 +50,7 @@ int			wp_streat(t_flag flag, va_list ap) //traiter une option s
 	putspace = (string) ? flag.width - ft_strlen(string) : flag.width;
     putspace = (string && flag.point && flag.precision < ft_strlen(string)) ? flag.width - flag.precision : putspace;
 	putspace = (!string && !flag.point && flag.width) ? flag.width - 6 : putspace;
+	putspace = (!string && flag.precision && flag.width) ? flag.width - flag.precision : putspace;
 	if (!flag.point && flag.width <= ft_strlen(string))
 		putspace = 0;
 	// GERER AJOUT DEVANT STRING

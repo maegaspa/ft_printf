@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   wp_oxtreat.c                                     .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: maegaspa <maegaspa@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: hmichel <hmichel@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/12 14:13:59 by maegaspa     #+#   ##    ##    #+#       */
-/*   Updated: 2019/06/03 15:37:08 by maegaspa    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/06/12 16:08:42 by hmichel     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -379,7 +379,7 @@ int            ox_treat_6(t_flag flag, long long dig, char *nbr, int nb_char)
             putspace -= 2;
         if ((size_t)flag.width > ft_strlen(nbr))
             while (++i < putspace)
-                nb_char = char_treat('0', nb_char); 
+                nb_char = char_treat('0', nb_char);
     }
 	return (nb_char);
 }

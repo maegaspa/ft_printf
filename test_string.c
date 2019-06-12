@@ -45,6 +45,7 @@ int     main()
 	ft_printf("[%d]\n", ft_printf("|%10.s| |%-10.s| |%10.s| |%10.s| |%-10.s| |%5.s| |%-5.s|\n", "aaccrrr", "bbccrrr", "ccccrrr", "ddccrrr", "eeccrr", "ffccrrr", "ddccrrr"));
 	printf("[%d]\n", printf("|%10.s| |%-10.s| |%10.s| |%10.s| |%-10.s| |%5.s| |%-5.s|\n", "aaccrrr", "bbccrrr", "ccccrrr", "ddccrrr", "eeccrr", "ffccrrr", "ddccrrr"));
 	printf("\n");
-	
+	ft_printf("[%d]\n", ft_printf("|%--2.4s\n", NULL));
+	printf("[%d]\n", printf("|%--2.4s\n", NULL));
 	return (0);
 }

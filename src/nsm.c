@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   nsm.c                                            .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: maegaspa <maegaspa@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: hmichel <hmichel@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/13 16:07:29 by maegaspa     #+#   ##    ##    #+#       */
-/*   Updated: 2019/06/11 17:34:37 by maegaspa    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/06/12 21:23:32 by hmichel     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -350,7 +350,7 @@ int		choose_xo(t_flag flag, va_list ap, int nb_char, t_out out)
 	if (flag.conv == 'p')
 	{
 		out.void_pointer = va_arg(ap, void*);
-		nb_char += wp_oxtreat(flag, out.void_pointer);
+		nb_char += wp_ptreat(flag, (unsigned long long)out.void_pointer);
 	}
 	if (flag.conv == 'o')
 	{
@@ -399,15 +399,15 @@ char	                *dectohexa(unsigned long long n, t_flag flags, int i)
 	if (n == 0)
 		return (octa_zero(seg));
 	j = ret_int(n, 16);
-	if (!(seg = malloc(sizeof(char) * j + 1)))
+	if (!(seg = malloc(sizeof(char) * (j + 1))))
 		return (NULL);
-	seg[j + 1] = '\0';
+	seg[j] = '\0';
 	while (n != 0)
 	{
 		tmp = n % 16;
 		if (tmp < 10)
 			seg[i] = tmp + 48;
-		else if (flags.conv == 'x')
+		else if (flags.conv == 'x' || flags.conv == 'p')
 			seg[i] = tmp + 87;
 		else if (flags.conv == 'X')
 			seg[i] = tmp + 55;
@@ -433,9 +433,9 @@ char	                *dectoocta(unsigned long n, t_flag flags)
 	if (n == 0)
 		return (octa_zero(seg));
 	j = ret_int(n, 8);
-	if (!(seg = malloc(sizeof(char) * j + 1)))
+	if (!(seg = malloc(sizeof(char) * (j + 1))))
 		return (NULL);
-	seg[j + 1] = '\0';
+	seg[j] = '\0';
 	while (n != 0)
 	{
 		seg[i] = 48 + (n % 8);
@@ -449,6 +449,7 @@ char	*octa_zero(char *seg)
 {
 	seg = ft_strnew(1);
 	seg[0] = 48;
+	seg[1] = '\0';
 	return (seg);
 }
 

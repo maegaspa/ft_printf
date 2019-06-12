@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   printf.h                                         .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: maegaspa <maegaspa@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: hmichel <hmichel@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/17 13:23:57 by maegaspa     #+#   ##    ##    #+#       */
-/*   Updated: 2019/06/11 17:34:38 by maegaspa    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/06/12 23:07:39 by hmichel     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -89,6 +89,7 @@ int                         wp_streat(t_flag flag, va_list string);
 int                         wp_dtreat(t_flag flag, long long dig);
 void						print_help(t_flag flag, int nb_char);
 char                        *ft_itoa_base(int value, int base);
+int							ft_putstr_add(char const *str);
 int		                    ft_atoibis(char *s);
 char                        *ft_strcaps(char *str);
 int                         wp_ctreat(t_flag flag, va_list ap);
@@ -148,7 +149,7 @@ int                       	u_treat_4(t_flag flag, long long dig, char *nbr, int 
 int                       	u_treat_5(t_flag flag, long long dig, char *nbr, int nb_char);
 int                         u_treat_6(t_flag flag, long long dig, char *nbr, int nb_char);
 int                       	u_treat_7(t_flag flag, long long dig, char *nbr, int nb_char);
-int                         wp_ptreat(void *p, t_flag flag);
+int             			wp_ptreat(t_flag flag, unsigned long long dig);
 //int			                wp_ddtreat(t_flag flag, t_out out);
 //int                         ft_printf(const char *format,
 //        ...) __attribute__((format(printf,1,2)));
