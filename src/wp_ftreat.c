@@ -6,7 +6,7 @@
 /*   By: hmichel <hmichel@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/20 19:35:54 by hmichel      #+#   ##    ##    #+#       */
-/*   Updated: 2019/06/15 15:32:06 by hmichel     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/06/15 16:58:32 by hmichel     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -36,9 +36,10 @@ static char	*ft_rounded1(double flo, t_flag flag, int option, t_float sfloat)
 			sfloat.enti += 1;
 	}
 	sfloat.temp = ft_itoa_base(sfloat.enti, 10);
-	if (!option)
-		return (sfloat.digit);
-	return (sfloat.temp);
+	if (option)
+		return (sfloat.temp);
+	free(sfloat.temp);
+	return (sfloat.digit);
 }
 
 static char	*ft_rounded(double flo, t_flag flag, int option)
@@ -57,6 +58,7 @@ static char	*ft_rounded(double flo, t_flag flag, int option)
 		if (!(sfloat.temp = ft_strjoin(sfloat.digit,
 			sfloat.itoa)))
 			return (NULL);
+		free(sfloat.itoa);
 		flo = flo - (long)flo;
 		free(sfloat.digit);
 		sfloat.digit = ft_strdup(sfloat.temp);
