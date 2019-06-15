@@ -6,12 +6,47 @@
 /*   By: maegaspa <maegaspa@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/13 16:07:29 by maegaspa     #+#   ##    ##    #+#       */
-/*   Updated: 2019/06/14 18:03:28 by maegaspa    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/06/15 17:12:35 by maegaspa    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../includes/printf.h"
+
+t_flag		flag_init(t_flag flag)
+{
+	flag.conv = 0;
+	flag.hashtag = 0;
+	flag.zero = 0;
+	flag.plus = 0;
+	flag.minus = 0;
+	flag.point = 0;
+	flag.space = 0;
+	flag.width = 0;
+	flag._l = 0;
+	flag._L = 0;
+	flag._h = 0;
+	flag.precision = 0;
+	return (flag);
+}
+
+t_out		out_init(void)
+{
+	t_out	out;
+
+	out.integ = 0;
+	out.string = 0;
+	out.uns_char = 0;
+	out.uns_integ = 0;
+	out.lo = 0;
+	out.lo_double = 0;
+	out.doub = 0;
+	out.sh_int = 0;
+	out.void_pointer = 0;
+	out.precis = 0;
+	out.ld = 0;
+	return (out);
+}
 
 int			parse(char *str, va_list ap)
 {
@@ -189,21 +224,6 @@ int			ft_printf(const char *format, ...)
     return (parse((char *)format, ap));
 }
 
-void		ft_putncaract(char c, int size)
-{
-	int		i;
-
-	i = -1;
-	while (++i != size)
-		ft_putchar(c);
-}
-
-void		ft_putnstr(char const *s, int size)
-{
-	if (s != 0)
-		write(1, s, size);
-}
-
 int         resolve_option(char *str, va_list ap, t_flag flag, int nb_char)
 {
     int         i;
@@ -218,157 +238,16 @@ int         resolve_option(char *str, va_list ap, t_flag flag, int nb_char)
 		nb_char += wp_streat(flag, ap);
 	if (flag.conv == 'c' || flag.conv == '%')
         nb_char += wp_ctreat(flag, ap);
-	/*if (flag.conv == 'f')
+	if (flag.conv == 'f')
 	{
 		if (flag._L)
 			out.doub = va_arg(ap, long double);
 		else
 			out.doub = va_arg(ap, double);
 		nb_char += wp_ftreat(flag, out.doub);
-	}*/
+	}
 	if (flag.conv == 'x' || flag.conv == 'X' || flag.conv == 'o' || flag.conv == 'p')
 		nb_char = choose_xo(flag, ap, nb_char, out);
     va_end(ap);
     return (nb_char);
-}
-
-int        choose_dig(t_flag flag, int nb_char, va_list ap, t_out out)
-{
-    if (flag._l && flag.conv == 'u')
-	{
-		out.yessai = va_arg(ap, unsigned long long);
-		nb_char += wp_utreat(flag, out.yessai);
-	}
-	else if (flag.conv == 'u' && !flag._h && flag._l)
-	{
-		out.uns_integ = va_arg(ap, unsigned int);
-		nb_char += wp_utreat(flag, out.uns_integ);
-	}
-    else if (flag.conv == 'u' && flag._h)
-    {
-        out.sh_int = va_arg(ap, unsigned short);
-        nb_char += wp_utreat(flag, out.sh_int);
-    }
-	else if (flag._l && (flag.conv == 'd' || flag.conv == 'i'))
-	{
-		out.ld = va_arg(ap, long long);
-		nb_char += wp_dtreat(flag, out.ld);
-	}
-	else if (flag.conv == 'u' && !flag._h && !flag._l)
-	{
-		out.uns_integ = va_arg(ap, unsigned int);
-		nb_char += wp_utreat(flag, out.uns_integ);
-	}
-	else
-	{
-		out.integ = va_arg(ap, int);
-		nb_char += wp_dtreat(flag, out.integ);
-	}
-	return (nb_char);
-}
-
-int		choose_xo(t_flag flag, va_list ap, int nb_char, t_out out)
-{
-    char    *nbr;
-
-	if (flag.conv == 'x' || flag.conv == 'X')
-	{
-		out.yessai = va_arg(ap, unsigned long long);
-		nb_char += wp_oxtreat(flag, out.yessai);
-	}
-	if (flag.conv == 'p')
-	{
-		out.void_pointer = va_arg(ap, void*);
-		nb_char += wp_oxtreat(flag, (unsigned long long)out.void_pointer);
-	}
-	if (flag.conv == 'o')
-	{
-		out.o = va_arg(ap, unsigned long);
-		nb_char += wp_otreat(flag, out.o);
-	}
-	return (nb_char);
-}
-
-char	*nbr_dig(long long dig, t_flag flag, char *str)
-{
-	if (flag.conv == 'u')
-	{
-		if (flag._l)
-			str = ft_ulltoa(dig);
-		else if (flag._h == 1)
-			str = ft_uhtoa(dig);
-		else if (flag._h == 2)
-			str = ft_hhtoa(dig);
-		else
-			str = ft_utoa(dig);
-	}
-	if (flag.conv == 'i' || flag.conv == 'd')
-	{
-		if (flag._l)
-			str = ft_lltoa(dig);
-		else if (flag._h == 1)
-			str = ft_htoa(dig);
-		else if (flag._h == 2)
-			str = ft_hhtoa(dig);
-		else
-			str = ft_itoa(dig);
-	}
-	return (str);
-}
-
-char	                *dectohexa(unsigned long long n, t_flag flags, int i)
-{
-	char				*seg;
-	int					j;
-	int					tmp;
-
-	if (n >= 429496729 && n <= 4563402751 && !flags._l)
-		n = n - 4294967296;
-	if (n == 0)
-		return (octa_zero(seg));
-	j = ret_int(n, 16);
-	if (!(seg = malloc(sizeof(char) * j + 1)))
-		return (NULL);
-	seg[j] = '\0';
-	while (n != 0)
-	{
-		tmp = n % 16;
-		if (tmp < 10)
-			seg[i] = tmp + 48;
-		else if (flags.conv == 'x' || flags.conv == 'p')
-			seg[i] = tmp + 87;
-		else if (flags.conv == 'X')
-			seg[i] = tmp + 55;
-		i++;
-		n = n / 16;
-	}
-	seg = cut_str_long(seg, flags);
-	return (ft_strrev(seg));
-}
-
-char	                *dectoocta(unsigned long n, t_flag flags)
-{
-	char			    *seg;
-	int				    i;
-	int				    j;
-	unsigned long	    tmp;
-
-	if (flags._h)
-		n = (unsigned short)n;
-    if (flags._h == 2)
-        n = (unsigned char)n;
-	i = 0;
-	if (n == 0)
-		return (octa_zero(seg));
-	j = ret_int(n, 8);
-	if (!(seg = malloc(sizeof(char) * j + 1)))
-		return (NULL);
-	seg[j + 1] = '\0';
-	while (n != 0)
-	{
-		seg[i] = 48 + (n % 8);
-		n = n / 8;
-		i++;
-	}
-	return (ft_strrev(seg));
 }

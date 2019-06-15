@@ -6,14 +6,14 @@
 /*   By: maegaspa <maegaspa@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/14 22:11:01 by maegaspa     #+#   ##    ##    #+#       */
-/*   Updated: 2019/06/01 13:47:29 by maegaspa    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/06/15 16:39:42 by maegaspa    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../includes/printf.h"
 
-int		ft_atoi_2(char const *str)
+int			ft_atoi_2(char const *str)
 {
 	int		i;
 	int		nbr;
