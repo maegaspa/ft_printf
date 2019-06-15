@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   wp_streat.c                                      .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: hmichel <hmichel@student.le-101.fr>        +:+   +:    +:    +:+     */
+/*   By: maegaspa <maegaspa@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/11 17:20:00 by hmichel      #+#   ##    ##    #+#       */
-/*   Updated: 2019/06/12 20:13:42 by hmichel     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/06/14 17:45:28 by maegaspa    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -37,61 +37,59 @@ static int	ft_printnull(t_flag flag, char *string)
 	return ((flag.precision <= 6) ? flag.precision : 6);
 }
 
-int			wp_streat(t_flag flag, va_list ap) //traiter une option s
+int			wp_streat(t_flag flag, va_list ap)
 {
-    int		putspace;
-    size_t	i;
-    int		nb_char;
 	char	*string;
+	int		putspace;
+	int		nb_char;
 
+	nb_char = 0;
 	string = va_arg(ap, char*);
-    nb_char = 0;
-    i = 0;
 	putspace = (string) ? flag.width - ft_strlen(string) : flag.width;
     putspace = (string && flag.point && flag.precision < ft_strlen(string)) ? flag.width - flag.precision : putspace;
 	putspace = (!string && !flag.point && flag.width) ? flag.width - 6 : putspace;
-	putspace = (!string && flag.precision && flag.width) ? flag.width - flag.precision : putspace;
 	if (!flag.point && flag.width <= ft_strlen(string))
 		putspace = 0;
-	// GERER AJOUT DEVANT STRING
+	nb_char = s_treat_1(flag, string, nb_char, putspace);
+	nb_char = s_treat_2(flag, string, nb_char, putspace);
+	nb_char = s_treat_3(flag, string, nb_char, putspace);
+	return (nb_char);
+}
+
+int			s_treat_1(t_flag flag, char *string, int nb_char, int putspace)
+{
+    int		i;
+
+    i = -1;
 	if (flag.point && !flag.precision && flag.width > 0 && !flag.minus)
 	{
-		while (i < flag.width)
+		while (++i < flag.width)
 		{
 			if (flag.zero)
-			{
-				ft_putchar('0');
-				nb_char++;
-	        }
+				nb_char = char_treat('0', nb_char);
 			else
-            {
-                ft_putchar(' ');
-                nb_char++;
-            }
-			i++;
+				nb_char = char_treat(' ', nb_char);
         }
     }
+	return (nb_char);
+}
+
+int			s_treat_2(t_flag flag, char *string, int nb_char, int putspace)
+{
+	int		i;
+
+	i = -1;
     if (flag.width && !flag.minus)
     {
         if (!string || (putspace > 0))
         {
-            while (i < putspace)
-            {
+            while (++i < putspace)
                 if (flag.zero > 0)
-                {
-                    ft_putchar('0');
-                    nb_char++;
-                }
+					nb_char = char_treat('0', nb_char);
                 else
-                {
-                    ft_putchar(' ');
-                    nb_char++;
-                }
-				i++;
-            }
+					nb_char = char_treat(' ', nb_char);
         }
     }
-	// IMPRIME LA STRING
 	if (flag.point && flag.precision > 0)
 	{
 		i = 0;
@@ -99,6 +97,14 @@ int			wp_streat(t_flag flag, va_list ap) //traiter une option s
 			ft_putchar(string[i++]);
 		nb_char += i;
 	}
+	return (nb_char);
+}
+
+int			s_treat_3(t_flag flag, char *string, int nb_char, int putspace)
+{
+	int		i;
+
+	i = -1;
 	if ((flag.point && flag.precision > 0) || (!flag.point && !flag.precision))
 		nb_char += ft_printnull(flag, string);
 	if (!flag.point)
@@ -106,26 +112,14 @@ int			wp_streat(t_flag flag, va_list ap) //traiter une option s
 		ft_putstr(string);
 		nb_char += ft_strlen(string);
 	}
-	// GERE LE MOINS
 	if (flag.width > 0 && flag.minus)
     {
-		i = 0;
         if (!string || (!flag.precision && (size_t)flag.width > ft_strlen(string)))
-        {
-            while (i < putspace)
-			{
-                nb_char += ft_putchar_add(' ');
-				i++;
-            }
-        }
+            while (++i < putspace)
+				nb_char = char_treat(' ', nb_char);
 		if (string && flag.point)
-		{
 			while (nb_char < flag.width)
-			{
-				ft_putchar(' ');
-                nb_char++;
-			}
-		}
+				nb_char = char_treat(' ', nb_char);
     }
     return (nb_char);
 }

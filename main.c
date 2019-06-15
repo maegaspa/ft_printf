@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   main.c                                           .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: hmichel <hmichel@student.le-101.fr>        +:+   +:    +:    +:+     */
+/*   By: maegaspa <maegaspa@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/09 13:36:54 by maegaspa     #+#   ##    ##    #+#       */
-/*   Updated: 2019/06/12 22:38:20 by hmichel     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/06/14 16:08:02 by maegaspa    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -26,55 +26,6 @@ int     main()
    // bite = 922337203685477;
    // ptdr = 147483655;
     c = 42;
-
-	ft_printf("%d\n", ft_printf("%p et %p\n", 4563402751, 429496729));
-	printf("%d\n", printf("%p et %p\n", 4563402751, 429496729));
-
-	printf("\n");
-	ft_printf("%d\n", ft_printf("|%#01.p| |%02.p| |%-06.p| |%1.p| |%2.p|\n", 5, 5, 5, 5, 5));
-	printf("%d\n", printf("|%#01.p| |%02.p| |%-06.p| |%1.p| |%2.p|\n", 5, 5, 5, 5, 5));
-	printf("\n");
-	ft_printf("%d\n", ft_printf("|%01.p| |%20.5p| |%03.p| |%1.p| |%2.p|\n", -45, 20, 96000, 2, -1));
-	printf("%d\n", printf("|%01.p| |%20.5p| |%03.p| |%1.p| |%2.p|\n", -45, 20, 96000, 2, -1));
-	printf("\n");
-    ft_printf("%d\n", ft_printf("|%#01.p| |%#02.p| |%03.p| |%1.p| |%2.p|\n", -45, 20, 96000, 2, -1));
-    printf("%d\n", printf("|%#01.p| |%#02.p| |%03.p| |%1.p| |%2.p|\n", -45, 20, 96000, 2, -1));
-	printf("\n");
-    ft_printf("[%d]\n", ft_printf("|%-.1p| |%-.2p|\n", 5, 5));
-	printf("[%d]\n", printf("|%-.1p| |%-.2p|\n", 5, 5));
-	printf("\n");
-	ft_printf("%d\n", ft_printf("|%#01.p| |%02.p| |%-03.p| |%1.p| |%2.p|\n", 0, 0, 0, 0, 0));
-	printf("%d\n", printf("|%#01.p| |%02.p| |%-03.p| |%1.p| |%2.p|\n", 0, 0, 0, 0, 0));
-	printf("\n");
-	ft_printf("%d\n", ft_printf("|%1.p| |%.1p| |%-1.p| |%-.1p| |%.3p|\n", 0, 0, 0, 0, 0));
-	printf("%d\n", printf("|%1.p| |%.1p| |%-1.p| |%-.1p| |%.3p|\n", 0, 0, 0, 0, 0));
-	printf("\n");
-	ft_printf("[%d]\n", ft_printf("|%5.p| |%-.2p| |%-.1p| |%-.2p|\n", 0, 0, 0, 0));
-	printf("[%d]\n", printf("|%5.p| |%-.2p| |%-.1p| |%-.2p|\n", 0, 0, 0, 0));
-	printf("\n");
-	ft_printf("%d\n", ft_printf("|%10.p| |%-10.p| |%10.p| |%10.p| |%-10.p|\n", 0, 0, 0, 0, 0));
-	printf("%d\n", printf("|%10.p| |%-10.p| |%10.p| |%10.p| |%-10.p|\n", 0, 0, 0, 0, 0));
-	printf("\n");
-	ft_printf("%d\n", ft_printf("|%#0-10p| |%#0+10p| |%#0+10.p| |%#0-10.p|\n", 0, 0, 0, 0, 0));
-	printf("%d\n", printf("|%#0-10p| |%#0+10p| |%#0+10.p| |%#0-10.p|\n", 0, 0, 0, 0, 0));
-	printf("\n");
-	ft_printf("%d\n", ft_printf("|%0-10p| |%0+10p| |%0+10.p| |%0-10.p|\n", 0, 0, 0, 0, 0));
-	printf("%d\n", printf("|%0-10p| |%0+10p| |%0+10.p| |%0-10.p|\n", 0, 0, 0, 0, 0));
-	//ft_printf("%d\n", ft_printf("|%#0-10x| |%#0+10x| |%#0+10.x| |%#0-10.x|\n", 0, 0, 0, 0, 0));
-	//printf("%d\n", printf("|%#0-10x| |%#0+10x| |%#0+10.x| |%#0-10.x|\n", 0, 0, 0, 0, 0));
-	ft_printf("%d\n", ft_printf("|%-.2p| |%5.p| |%-5.p|\n", 5, 0, 0));
-	printf("%d\n", printf("|%-.2p| |%5.p| |%-5.p|\n", 5, 0, 0));
-	printf("\n");
-	ft_printf("%d\n", ft_printf("|%+1.1p| |%+2.0p| |%+3.1p| |%+1.0p| |%+2.1p|\n", 15, 300, 140, 9, 7));
-	printf("%d\n", printf("|%+1.1p| |%+2.0p| |%+3.1p| |%+1.0p| |%+2.1p|\n", 15, 300, 140, 9, 7));
-	printf("\n");
-	ft_printf("%d\n", ft_printf("|%-1.5p| |%+2.4p| |%-3.p| |%-1.p| |%-2.p|\n", 125, -78, 58, 8, 48));
-	printf("%d\n", printf("|%-1.5p| |%+2.4p| |%-3.p| |%-1.p| |%-2.p|\n",  125, -78, 58, 8, 48));
-	printf("\n");
-	ft_printf("%d\n", ft_printf("|%-3.1p| |%5.2p| |%+1.0p| |%+0.2p|\n", 1, 0, 15488, 203));
-	printf("%d\n", printf("|%-3.1p| |%5.2p| |%+1.0p| |%+0.2p|\n", 1, 0, 15488, 203));
-	printf("\n");
-/*
 	printf("[%d]\n", printf("|% d|", 0));
 	ft_printf("[%d]\n", ft_printf("|% d|", 0));
 	printf("[%d]\n", printf("|%08i|", -71));
@@ -145,16 +96,38 @@ int     main()
 	ft_printf("[%d]\n", ft_printf("|%4u|", 1));
 	printf("[%d]\n", printf("|%04d|", 0));
 	ft_printf("[%d]\n", ft_printf("|%04d|", 0));
-	printf("[%d]\n", printf("|%-12i et %--2.4s %24s !\n|", 0, NULL, "coco"));
-	ft_printf("[%d]\n", ft_printf("|%-12i et %--2.4s %24s !\n|", 0, NULL, "coco"));
+	printf("[%d]\n", printf("|%-12i et |%--2.4s| |%24s| !\n|", 0, NULL, "coco"));
+	ft_printf("[%d]\n", ft_printf("|%-12i et |%--2.4s| |%24s| !\n|", 0, NULL, "coco"));
 	printf("[%d]\n", printf("|%-12d|", 0));
 	ft_printf("[%d]\n", ft_printf("|%-12d|", 0));
-	printf("[%d]\n", printf("|coco et %-#-#--24O titi%#012o|", 12, -874));
-	ft_printf("[%d]\n", ft_printf("|coco et %-#-#--24O titi%#012o|", 12, -874));
-	printf("[%d]\n", printf("|t%04.2o%#2oet %#-8.3o titi|", 0, 0, 0));
-	ft_printf("[%d]\n", ft_printf("|t%04.2o%#2oet %#-8.3o titi|", 0, 0, 0));
-	
-	printf("d : short = |%hd| long = |%ld| sshort = |%hhd| llong = |%lld|\n", 200000000000, 200000000000, 200000000000, 200000000000);
+
+	printf("[%d]\n", printf("|t|%04.2o||%#2o|et |%#-8.3o| titi|", 0, 0, 0));
+	ft_printf("[%d]\n", ft_printf("|t|%04.2o||%#2o|et |%#-8.3o| titi|", 0, 0, 0));
+
+	printf("[%d]\n", printf("|%.u|", 0));
+	ft_printf("[%d]\n", ft_printf("|%.u|", 0));
+	printf("[%d]\n", printf("|%u|", 0));
+	ft_printf("[%d]\n", ft_printf("|%u|", 0));
+	printf("[%d]\n", printf("|ko%-4.2hhu et %05.2u!|", (unsigned char)-456, 0));
+	ft_printf("[%d]\n", ft_printf("|ko%-4.2hhu et %05.2u!|", (unsigned char)-456, 0));
+	printf("[%d]\n", printf("|%#X|", 0));
+	ft_printf("[%d]\n", ft_printf("|%#X|", 0));
+	printf("[%d]\n", printf("|osef ! %#9llX et %-12hhx|", (unsigned long long)-1248759650, (unsigned char)-1478223695));
+	ft_printf("[%d]\n", ft_printf("|osef ! %#9llX et %-12hhx|", (unsigned long long)-1248759650, (unsigned char)-1478223695));
+	printf("[%d]\n", printf("|%#x|", 0x78aa));
+	ft_printf("[%d]\n", ft_printf("|%#x|", 0x78aa));
+	printf("[%d]\n", printf("|%.0x|", 0));
+	ft_printf("[%d]\n", ft_printf("|%.0x|", 0));
+	printf("[%d]\n", printf("|test%---10.6x et |%01hhX| !!\n|", 0xaabb, (unsigned char)0));
+	ft_printf("[%d]\n", ft_printf("|test%---10.6x et |%01hhX| !!\n|", 0xaabb, (unsigned char)0));
+	printf("[%d]\n", printf("|test|%#.4o| et |%02o| |%0#14.0o|!!|", 012, 036, 12587499));
+	ft_printf("[%d]\n", ft_printf("|test|%#.4o| et |%02o| |%0#14.0o|!!|", 012, 036, 12587499));
+	printf("[%d]\n", printf("|cc%#.4X et %#0012x %#04hX !!|", 0xaef, 0xe, (unsigned short)0));
+	ft_printf("[%d]\n", ft_printf("|cc%#.4X et %#0012x %#04hX !!|", 0xaef, 0xe, (unsigned short)0));
+	printf("[%d]\n", printf("|%0#10.0x|", 0));
+	ft_printf("[%d]\n", ft_printf("|%0#10.0x|", 0));
+
+/*	printf("d : short = |%hd| long = |%ld| sshort = |%hhd| llong = |%lld|\n", 200000000000, 200000000000, 200000000000, 200000000000);
 	ft_printf("d : short = |%hd| long = |%ld| sshort = |%hhd| llong = |%lld|\n", 200000000000, 200000000000, 200000000000, 200000000000);
 	printf("\n");
 	printf("x : short = |%hx| long = |%lx| sshort = |%hhx| llong = |%llx|\n", 200000000000, 200000000000, 200000000000, 200000000000);
@@ -177,7 +150,7 @@ int     main()
 	printf("\n");
 	printf("u : short = |%hu| long = |%lu| sshort = |%hhu| llong = |%llu|\n", -200000000000, -200000000000, -200000000000, -200000000000);
 	ft_printf("u : short = |%hu| long = |%lu| sshort = |%hhu| llong = |%llu|\n", -200000000000, -200000000000, -200000000000, -200000000000);
-	//printf("[%d]\n", printf("printf = %04s 12car garage but only got 6 cars \n", str));
+	*///printf("[%d]\n", printf("printf = %04s 12car garage but only got 6 cars \n", str));
 	//printf("printf #x = %#lx\n", str);
 	//ft_printf("printf = %04s 12car garage but only got 6 cars \n", str);
     //printf("[printf] : %#080x \n", c);
@@ -192,7 +165,7 @@ int     main()
 	//printf("LUI = |%#11x| |%#3.11x| avec # |%#10.10x| |%#10.x| ou zero |%#03.10x| |%#10.0x| \n", 5, 5, 5, 5, 5, 5);
 
 	//printf("coucou = |%2.0d| |%2.0d| |%2.0d| |%2.0d|\n", 12, 2, 3, 4);
-
+/*
 printf("---- Digit ----\n\n");
 	ft_printf("[%d]\n", ft_printf("|%01.d| |%02.d| |%03.d| |%1.d| |%2.d| |%.1d| |%.2d|\n", 5, 5, 5, 5, 5, 5, 5));
 	printf("[%d]\n", printf("|%01.d| |%02.d| |%03.d| |%1.d| |%2.d| |%.1d| |%.2d|\n", 5, 5, 5, 5, 5, 5, 5));
@@ -264,7 +237,7 @@ printf("---- Digit ----\n\n");
 	
 	//printf( "ALORS = |%.1d|\n", 0);
 	//ft_printf("QLORS = |%.1d|\n", 0);
-	printf("\n");
+	/*printf("\n");
 	ft_printf("[%d]\n", ft_printf("|%-.10ld| |%+.10ld| |% .10d| |%- .5d| |%+ .5d| |%+ .10d|\n", 0, 0, 0, 0, 0, 0));
 	printf("[%d]\n", printf("|%-.10ld| |%+.10ld| |% .10d| |%- .5d| |%+ .5d| |%+ .10d|\n", 0, 0, 0, 0, 0, 0));
 	
@@ -308,7 +281,7 @@ printf("---- Digit ----\n\n");
 	ft_printf("[%d]\n", ft_printf("|%1u| |%.10u| |%10u| |%-10u| |%+10u| |%+10.u| |%-10.u|\n", -4, -2, -4, -1, -5, -9, -8));
 	printf("[%d]\n",printf("|%1u| |%.10u| |%10u| |%-10u| |%+10u| |%+10.u| |%-10.u|\n", -4, -2, -4, -1, -5, -9, -8));
 	printf("\n");
-	ft_printf("[%d]\n", ft_printf("|% .10lu| |%-.10u| |%+.10u| |% .10u| |%- .5u| |%+ .5u| |%+ .10u|\n", 4, 2, 4, 1, 5, 9, 8));
+	/*ft_printf("[%d]\n", ft_printf("|% .10lu| |%-.10u| |%+.10u| |% .10u| |%- .5u| |%+ .5u| |%+ .10u|\n", 4, 2, 4, 1, 5, 9, 8));
 	printf("[%d]\n", printf("|% .10lu| |%-.10u| |%+.10u| |% .10u| |%- .5u| |%+ .5u| |%+ .10u|\n", 4, 2, 4, 1, 5, 9, 8));
 	
 	printf("\n");
@@ -317,7 +290,7 @@ printf("---- Digit ----\n\n");
 	printf("\n");
 	ft_printf("[%d]\n", ft_printf("|%10.lu| |%-10.u| |%10.u| |%10.u| |%-10.u| |%5.u| |%-5.u|\n", 4, 2, 4, 1, 5, 9, 8));
 	printf("[%d]\n", printf("|%10.lu| |%-10.u| |%10.u| |%10.u| |%-10.u| |%5.u| |%-5.u|\n", 4, 2, 4, 1, 5, 9, 8));
-
+	/*
 	printf("\n");
 	ft_printf("%d\n", ft_printf("|%#01.o| |%02.o| |%-03.o| |%1.o| |%2.x|\n", 5, 5, 5, 5, 5));
 	printf("%d\n", printf("|%#01.o| |%02.o| |%-03.o| |%1.o| |%2.o|\n", 5, 5, 5, 5, 5));
@@ -418,7 +391,7 @@ printf("---- Digit ----\n\n");
 	ft_printf("[%d]\n", ft_printf("|%#0+10.o| |%#0-10.o| |%+1.0o| |%+0.2o|\n", 9, 8, 15, 9));
 	printf("[%d]\n", printf("|%#0+10.o| |%#0-10.o| |%+1.0o| |%+0.2o|\n", 9, 8, 15, 9));
 	printf("\n");
-	ft_printf("[%d]\n", ft_printf("|% .10lo| |%-.10o| |%+.10o| |% .10o| |%- .5o|\n", 4, 2, 4, 1, 5));
+	/*ft_printf("[%d]\n", ft_printf("|% .10lo| |%-.10o| |%+.10o| |% .10o| |%- .5o|\n", 4, 2, 4, 1, 5));
 	printf("[%d]\n", printf("|% .10lo| |%-.10o| |%+.10o| |% .10o| |%- .5o|\n", 4, 2, 4, 1, 5));
 	printf("\n");
 	ft_printf("[%d]\n", ft_printf("|%10.lo| |%-10.o| |%10.o| |%10.o| |%-10.o|\n", 4, 2, 4, 1, 5));
@@ -532,8 +505,8 @@ printf("---- Digit ----\n\n");
 	printf("|%10.lx| |%-10.x| |%10.x| |%10.x| |%-10.x| |%5.x| |%-5.x|\n", 4, 2, 4, 1, 5, 9, 8);
 
 	printf("\n"); 
-	// --- O
-	printf("---- Octal ----\n\n");		
+	 // --- O*/
+	/*printf("---- Octal ----\n\n");		
 	
 	ft_printf("|%#01.o| |%02.o| |%-03.o| |%1.o| |%2.x| |%-.1o| |%-.2o|\n", 5, 5, 5, 5, 5, 5, 5);
 	printf("|%#01.o| |%02.o| |%-03.o| |%1.o| |%2.o| |%-.1o| |%-.2o|\n", 5, 5, 5, 5, 5, 5, 5);
@@ -729,7 +702,7 @@ printf("---- Digit ----\n\n");
 	printf("\n");
 	ft_printf("%d\n", ft_printf("16hexa-maj 1 %.6X hexa-maj 2 %.6X\n", 42, -42));
 	printf("%d\n", printf("16hexa-maj 1 %.6X hexa-maj 2 %.6X\n", 42, -42));
-	ft_printf("%d\n", ft_printf("|%#015.lx| |%025.lx| |%-035.lx| |%15.lx| |%25.lx| |%-.15lx| |%-.25lx|\n", 922337203685477, 922337203685477, 922337203685477, 922337203685477, 922337203685477, 922337203685477, 922337203685477));
+	/*ft_printf("%d\n", ft_printf("|%#015.lx| |%025.lx| |%-035.lx| |%15.lx| |%25.lx| |%-.15lx| |%-.25lx|\n", 922337203685477, 922337203685477, 922337203685477, 922337203685477, 922337203685477, 922337203685477, 922337203685477));
 	printf("%d\n", printf("|%#015.lx| |%025.lx| |%-035.lx| |%15.lx| |%25.lx| |%-.15lx| |%-.25lx|\n", 922337203685477, 922337203685477, 922337203685477, 922337203685477, 922337203685477, 922337203685477, 922337203685477));
 	printf("\n");
 	ft_printf("%d\n", ft_printf("|%#016.lx| |%#025.lx| |%035.lx| |%15.lx| |%25.lx| |%.15lx| |%.25lx|\n", 922337203685477, 922337203685477, 922337203685477, 922337203685477, 922337203685477, 922337203685477, 922337203685477));
@@ -843,7 +816,7 @@ printf("---- Digit ----\n\n");
 	printf("\n");
 	ft_printf("%d\n", ft_printf("16hexa-maj 1 %.6X hexa-maj 2 %.6X\n", 42, -42));
 	printf("%d\n", printf("16hexa-maj 1 %.6X hexa-maj 2 %.6X\n", 42, -42)); 
-	ft_printf("%d\n", ft_printf("16hexa 1 %.16lx hexa 2 %.16lx\n", 922337203685477, 922337203685477));
+	/*ft_printf("%d\n", ft_printf("16hexa 1 %.16lx hexa 2 %.16lx\n", 922337203685477, 922337203685477));
 	printf("%d\n\n", printf("16hexa 1 %.16lx hexa 2 %.16lx\n", 922337203685477, 922337203685477));
 	printf("\n");
 	ft_printf("%d\n", ft_printf("|%#01.lx| |%02.lx| |%-03.lx| |%1.lx| |%2.lx| |%-.1lx| |%-.2lx|\n", 922337203685477, 922337203685477, 922337203685477, 922337203685477, 922337203685477, 922337203685477, 922337203685477));
@@ -972,7 +945,7 @@ printf("---- Digit ----\n\n");
 	printf("%d\n", printf("15hexa-maj 1 %.X hexa-maj 2 %.X\n", 42, -42));
 	printf("\n");
 	ft_printf("%d\n", ft_printf("16hexa-maj 1 %.6X hexa-maj 2 %.6X\n", 42, -42));
-	printf("%d\n", printf("16hexa-maj 1 %.6X hexa-maj 2 %.6X\n", 42, -42));
+	printf("%d\n", printf("16hexa-maj 1 %.6X hexa-maj 2 %.6X\n", 42, -42)); /*
 	ft_printf("%d\n", ft_printf("|%#01.lx| |%02.lx| |%-03.lx| |%1.lx| |%2.lx| |%-.1lx| |%-.2lx|\n", 922337203685477, 922337203685477, 922337203685477, 922337203685477, 922337203685477, 922337203685477, 922337203685477));
 	printf("%d\n", printf("|%#01.lx| |%02.lx| |%-03.lx| |%1.lx| |%2.lx| |%-.1lx| |%-.2lx|\n", 922337203685477, 922337203685477, 922337203685477, 922337203685477, 922337203685477, 922337203685477, 922337203685477));
 	printf("\n");
@@ -1025,7 +998,7 @@ printf("---- Digit ----\n\n");
 	ft_printf("%d\n", ft_printf("|%+1.1x| |%+2.0x| |%+3.1x| |%+1.0x| |%+2.1x|\n", 15, 300, 140, 9, 7));
 	printf("%d\n", printf("|%+1.1x| |%+2.0x| |%+3.1x| |%+1.0x| |%+2.1x|\n", 15, 300, 140, 9, 7));
 	printf("\n");	
-	ft_printf("%d\n", ft_printf("|% .10lx| |%-.10x| |%+.10x| |% .10x| |%- .5x|\n", 4, 2, 4, 1, 5));
+	/*ft_printf("%d\n", ft_printf("|% .10lx| |%-.10x| |%+.10x| |% .10x| |%- .5x|\n", 4, 2, 4, 1, 5));
 	printf("%d\n", printf("|% .10lx| |%-.10x| |%+.10x| |% .10x| |%- .5x|\n", 4, 2, 4, 1, 5));
 	printf("\n");
 	ft_printf("%d\n", ft_printf("|%10.lx| |%-10.x| |%10.x| |%10.x| |%-10.x|\n", 4, 2, 4, 1, 5));

@@ -3,84 +3,15 @@
 /*                                                              /             */
 /*   nsm.c                                            .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: hmichel <hmichel@student.le-101.fr>        +:+   +:    +:    +:+     */
+/*   By: maegaspa <maegaspa@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/13 16:07:29 by maegaspa     #+#   ##    ##    #+#       */
-/*   Updated: 2019/06/12 21:23:32 by hmichel     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/06/14 18:03:28 by maegaspa    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../includes/printf.h"
-#include <stdlib.h>
-
-void		print_help(t_flag flag, int nb_char)
-{
-    printf("\nhash : %d\n", flag.hashtag);
-    printf("preci: %d\n", flag.precision);
-    printf("zero : %d\n", flag.zero);
-    printf("minus: %d\n", flag.minus);
-    printf("plus : %d\n", flag.plus);
-    printf("point: %d\n", flag.point);
-    printf("space: %d\n", flag.space);
-    printf("width: %d\n", flag.width);
-    printf("_l 	 : %d\n", flag._l);
-    printf("_h   : %d\n", flag._h);
-	printf("_L   : %d\n", flag._L);
-	printf("conv : %c\n", flag.conv);
-    printf("nb_char: %d\n\n", nb_char);
-}
-
-int			is_option(char p)
-{
-    if (p == 's' || p == 'd' || p == 'i' || p == 'o' || p == 'u' || p == 'x' || p == 'X'
-        || p == 'c' || p == 'p' || p == 'l' || p == 'L' || p == 'f' || p == 'h')
-        return (1);
-    return (0);
-}
-
-t_flag		flag_init(t_flag flag)
-{
-    flag.conv = 0;
-    flag.hashtag = 0;
-    flag.zero = 0;
-    flag.plus = 0;
-    flag.minus = 0;
-    flag.point = 0;
-    flag.space = 0;
-    flag.width = 0;
-    flag._l = 0;
-    flag._L = 0;
-	flag._h = 0;
-	flag.precision = 0;
-    return (flag);
-}
-
-t_out		out_init(void)
-{
-	t_out	out;
-
-    out.integ = 0;
-    out.string = 0;
-	out.uns_char = 0;
-	out.uns_integ = 0;
-    out.lo = 0;
-    out.lo_double = 0;
-    out.doub = 0;
-    out.sh_int = 0;
-    out.void_pointer = 0;
-    out.precis = 0;
-    out.ld = 0;
-    return (out);
-}
-
-int			is_conv(char c)
-{
-    if (c == 'c' || c == 's' || c == 'p' || c == 'd' || c == 'i' || c == 'o'
-		|| c == 'u' || c == 'x' || c == 'X' || c == 'f' || c == '\0' || c == '%')
-        return (1);
-    return (0);
-}
 
 int			parse(char *str, va_list ap)
 {
@@ -343,14 +274,12 @@ int		choose_xo(t_flag flag, va_list ap, int nb_char, t_out out)
 	if (flag.conv == 'x' || flag.conv == 'X')
 	{
 		out.yessai = va_arg(ap, unsigned long long);
-        //if (flag.conv == 'X')
-        //    nbr = ft_strcaps(nbr);
 		nb_char += wp_oxtreat(flag, out.yessai);
 	}
 	if (flag.conv == 'p')
 	{
 		out.void_pointer = va_arg(ap, void*);
-		nb_char += wp_ptreat(flag, (unsigned long long)out.void_pointer);
+		nb_char += wp_oxtreat(flag, (unsigned long long)out.void_pointer);
 	}
 	if (flag.conv == 'o')
 	{
@@ -384,7 +313,6 @@ char	*nbr_dig(long long dig, t_flag flag, char *str)
 		else
 			str = ft_itoa(dig);
 	}
-	//c_dig->len = ft_strlen(str);
 	return (str);
 }
 
@@ -399,7 +327,7 @@ char	                *dectohexa(unsigned long long n, t_flag flags, int i)
 	if (n == 0)
 		return (octa_zero(seg));
 	j = ret_int(n, 16);
-	if (!(seg = malloc(sizeof(char) * (j + 1))))
+	if (!(seg = malloc(sizeof(char) * j + 1)))
 		return (NULL);
 	seg[j] = '\0';
 	while (n != 0)
@@ -433,9 +361,9 @@ char	                *dectoocta(unsigned long n, t_flag flags)
 	if (n == 0)
 		return (octa_zero(seg));
 	j = ret_int(n, 8);
-	if (!(seg = malloc(sizeof(char) * (j + 1))))
+	if (!(seg = malloc(sizeof(char) * j + 1)))
 		return (NULL);
-	seg[j] = '\0';
+	seg[j + 1] = '\0';
 	while (n != 0)
 	{
 		seg[i] = 48 + (n % 8);
@@ -443,48 +371,4 @@ char	                *dectoocta(unsigned long n, t_flag flags)
 		i++;
 	}
 	return (ft_strrev(seg));
-}
-
-char	*octa_zero(char *seg)
-{
-	seg = ft_strnew(1);
-	seg[0] = 48;
-	seg[1] = '\0';
-	return (seg);
-}
-
-int		ret_int(unsigned long long n, int base)
-{
-	int		j;
-
-	j = 0;
-	while (n != 0)
-	{
-		n = n / base;
-		j++;
-	}
-	return (j);
-}
-
-char	*cut_str_long(char *seg, t_flag flags)
-{
-	if (flags.conv == 'x' || flags.conv == 'X')
-	{
-		if (flags._l && ft_strlen(seg) > 16)
-			seg[16] = '\0';
-		if (ft_strlen(seg) > 8 && !flags._l)
-			seg[8] = '\0';
-		if (flags._h == 1)
-			seg[4] = '\0';
-		if (flags._h == 2)
-			seg[2] = '\0';
-	}
-	else
-	{
-		if (flags._h == 1)
-			seg[6] = '\0';
-		if (flags._h == 2)
-			seg[3] = '\0';
-	}
-	return (seg);
 }
