@@ -6,7 +6,7 @@
 /*   By: hmichel <hmichel@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/06/11 17:32:14 by maegaspa     #+#   ##    ##    #+#       */
-/*   Updated: 2019/06/12 23:09:49 by hmichel     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/06/15 14:29:49 by hmichel     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -40,38 +40,54 @@ char			*dectohexa_p(unsigned long long n, t_flag flags, int i)
 	seg = cut_str_long(seg, flags);
 	return (ft_strrev(seg));
 }
-// gcc -g -fsanitize=address libft/libft.a src/ft_atoi_2.c src/ft_strcaps.c src/nsm.c src/util.c src/wp_ctreat.c src/wp_dtreat.c src/wp_otreat.c src/wp_oxtreat.c src/wp_streat.c src/wp_utreat.c src/wp_ptreat.c  main.c
-int             wp_ptreat(t_flag flag, unsigned long long dig)
+
+static int		ft_print(t_flag flag, char *nbr, int putspace,
+				unsigned long long dig)
 {
-	char 	*nbr;
+	int		nb_char;
+
+	nb_char = 0;
+	while (!flag.minus && putspace--)
+		nb_char += ft_putchar_add(' ');
+	nb_char = multichar_treat("0x", nb_char);
+	if (flag.precision > ft_strlen(nbr))
+	{
+		ft_putncaract('0', flag.precision - ft_strlen(nbr));
+		nb_char += flag.precision - ft_strlen(nbr);
+	}
+	else if (!flag.point && !flag.minus && flag.zero &&
+			flag.width > ft_strlen(nbr) + 2)
+	{
+		ft_putncaract('0', flag.width - ft_strlen(nbr) - 2);
+		nb_char += flag.width - ft_strlen(nbr) - 2;
+	}
+	if (!(!dig && flag.point && !flag.precision))
+		nb_char += ft_putstr_add(nbr);
+	return (nb_char);
+}
+
+int				wp_ptreat(t_flag flag, unsigned long long dig)
+{
+	char	*nbr;
 	int		nb_char;
 	int		putspace;
 
 	nb_char = 0;
-	//BEFORE
-    if (!(nbr = dectohexa_p(dig, flag, 0)))
+	if (!(nbr = dectohexa_p(dig, flag, 0)))
 		return (0);
-	putspace = (flag.width > ft_strlen(nbr) + 2) ? flag.width - ft_strlen(nbr) - 2 : 0;
-	putspace = (!dig && flag.width > ft_strlen(nbr) + 1) ? flag.width - ft_strlen(nbr) -  1 : 0;
-	putspace = (flag.point && flag.precision > ft_strlen(nbr)) ? flag.width - flag.precision - 2 : putspace;
-	//putspace = () // PB AVEC FLAG '0'
-	//putspace = (dig == 0) ? flag.precision : putspace;
+	putspace = (flag.width > ft_strlen(nbr) + 2) ? flag.width -
+				ft_strlen(nbr) - 2 : 0;
+	putspace = (flag.point && flag.precision > ft_strlen(nbr)) ? flag.width -
+				flag.precision - 2 : putspace;
+	if (dig == 0 && flag.width > 2 && flag.point && !flag.precision)
+		putspace = flag.width - 2;
+	if (!flag.point && !flag.minus && flag.zero && flag.width >
+		ft_strlen(nbr) + 2)
+		putspace = 0;
 	if (putspace < 0)
 		putspace = 0;
-	while (!flag.minus && putspace--)
-		nb_char += ft_putchar_add(' ');
-	//PRINT
-	nb_char = multichar_treat("0x", nb_char);
-	if (flag.precision > ft_strlen(nbr))
-	{	if (!dig)
-			nb_char += ft_putchar_add('0');
-		ft_putncaract('0', flag.precision - ft_strlen(nbr));
-		nb_char += flag.precision - ft_strlen(nbr);
-	}
-	if (dig != 0)
-		nb_char += ft_putstr_add(nbr);
+	nb_char += ft_print(flag, nbr, putspace, dig);
 	free(nbr);
-	//AFTER
 	while (flag.minus && putspace--)
 		nb_char += ft_putchar_add(' ');
 	return (nb_char);
