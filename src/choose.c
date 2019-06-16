@@ -6,7 +6,7 @@
 /*   By: maegaspa <maegaspa@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/06/15 14:12:02 by maegaspa     #+#   ##    ##    #+#       */
-/*   Updated: 2019/06/15 16:59:06 by maegaspa    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/06/16 19:58:43 by maegaspa    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -52,7 +52,7 @@ int				choose_xo(t_flag flag, va_list ap, int nb_char, t_out out)
 	if (flag.conv == 'p')
 	{
 		out.void_pointer = va_arg(ap, void*);
-		nb_char += wp_oxtreat(flag, (unsigned long long)out.void_pointer);
+		nb_char += wp_ptreat(flag, (unsigned long long)out.void_pointer);
 	}
 	if (flag.conv == 'o')
 	{

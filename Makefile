@@ -6,7 +6,7 @@
 #    By: maegaspa <maegaspa@student.le-101.fr>      +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2019/02/06 16:29:54 by maegaspa     #+#   ##    ##    #+#        #
-#    Updated: 2019/06/14 20:42:47 by maegaspa    ###    #+. /#+    ###.fr      #
+#    Updated: 2019/06/16 17:58:04 by maegaspa    ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -22,6 +22,8 @@ FILES = src/nsm\
 		src/util\
 		src/util2\
 		src/util3\
+		src/util4\
+		src/choose\
 		src/wp_streat\
 		src/wp_dtreat\
 		src/wp_dtreat2\
@@ -33,9 +35,7 @@ FILES = src/nsm\
 		src/wp_utreat\
 		src/wp_utreat2\
 		src/wp_ctreat\
-		src/ft_atoi_2\
 		src/wp_ptreat\
-		src/ft_strcaps\
 		
 
 SRC = $(addsuffix .c, $(FILES))

@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   printf.h                                         .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: hmichel <hmichel@student.le-101.fr>        +:+   +:    +:    +:+     */
+/*   By: maegaspa <maegaspa@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/17 13:23:57 by maegaspa     #+#   ##    ##    #+#       */
-/*   Updated: 2019/06/12 23:07:39 by hmichel     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/06/16 19:18:22 by maegaspa    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -43,6 +43,7 @@ typedef struct              s_flag
     unsigned int            _L;
 	unsigned int			precision;
 	char					conv;
+	int						tmp;
 }                           t_flag;
 
 typedef struct              s_out
@@ -55,7 +56,7 @@ typedef struct              s_out
     long                    lo;
     long double             lo_double;
     unsigned short          sh_int;
-    int                   *void_pointer;
+    int                   	*void_pointer;
     double                  doub;
     int                     precis;
     long long               ld;
@@ -64,12 +65,13 @@ typedef struct              s_out
 
 typedef struct				s_compt
 {
-	int		i;
-	int		j;
-	int		k;
-	int		m;
-	char	*num;
-	char	*num2;
+	int						i;
+	int						j;
+	int						k;
+	int						m;
+	int						nb;
+	char					*num;
+	char					*num2;
 }							t_compt;
 
 typedef struct              s_count
@@ -77,10 +79,23 @@ typedef struct              s_count
     int                     i;
     int                     j;
 }                           t_count;
-
+int							is_no_flag(t_compt *compt, t_flag *flags, char *str);
+int							give_info(t_compt *compt, t_flag flags, va_list va, char *str);
+int							if_is_true(char *str, t_flag flags, t_compt compt);
+int							ft_is_in_string(char c);
+int							choose_dig_1(va_list ap, t_flag flag, t_out out, int nb_char);
+int							choose_dig_2(va_list ap, t_flag flag, t_out out, int nb_char);
+int			                is_option(char p);
+t_flag		                flag_init(t_flag flag);
+t_out		                out_init(void);
+int			                is_conv(char c);
 int							parse(char *str, va_list ap);
+int		                	parse_2(t_compt compt, t_flag flags, int nb_char, char *str);
+void		                parse_3(t_compt compt, t_flag flags, int nb_char, char *str);
+void		                parse_4(t_compt compt, t_flag flags, char *str);
+int 		                parse_5(t_compt compt, t_flag flags, int nb_char, char *str);
+int                         is_minus(char *len);
 int                         ft_printf(const char *format, ...);
-//int                       parsing(char *str, va_list ap);
 int                         resolve_option(char *str, va_list ap, t_flag flag, int nb_char);
 unsigned int                x_treat(unsigned int out, t_flag flag, char *str);
 char                        s_treat(const char *out, t_flag flag, char *str);
@@ -88,13 +103,10 @@ char                        *flag_boi(t_flag flag, char *str);
 int                         wp_streat(t_flag flag, va_list string);
 int                         wp_dtreat(t_flag flag, long long dig);
 void						print_help(t_flag flag, int nb_char);
-char                        *ft_itoa_base(int value, int base);
-int							ft_putstr_add(char const *str);
 int		                    ft_atoibis(char *s);
 char                        *ft_strcaps(char *str);
 int                         wp_ctreat(t_flag flag, va_list ap);
 int                         wp_oxtreat(t_flag flag, long long dig);
-//char                        *ft_wichf(char wichf, char *str, int i, t_flag flag);
 void	                    ft_putncaract(char c, int size);
 int		                    ft_atoi_2(char const *str);
 void	                    ft_putnstr(char const *s, int size);
@@ -104,9 +116,6 @@ int                         choose_dig(t_flag flag, int nb_char, va_list ap, t_o
 int		                    choose_xo(t_flag flag, va_list ap, int nb_char, t_out out);
 char	                    *nbr_dig(long long dig, t_flag flag, char *str);
 char                        *nbr_digox(long long dig, t_flag flag, char *str);
-char                        *ft_uhhtoa_base(unsigned short value, int base);
-char                        *ft_ulltoa_base(unsigned long long value, int base);
-char                        *ft_utoa_base(unsigned int value, int base);
 char	                    *dectohexa(unsigned long long n, t_flag flags, int i);
 char	                    *octa_zero(char *seg);
 int		                    ret_int(unsigned long long n, int base);
@@ -117,11 +126,15 @@ int				            ft_putchar_add(char c);
 int                         multichar_treat(char *c, int nb_char);
 int							wp_ftreat(t_flag flag, double nb);
 double long					ft_pow10(double long f, int exp);
+int			                s_treat_1(t_flag flag, char *string, int nb_char, int putspace);
+int			                s_treat_2(t_flag flag, char *string, int nb_char, int putspace);
+int			                s_treat_3(t_flag flag, char *string, int nb_char, int putspace);
 int							d_treat_1(t_flag flag, long long dig, char *len, int nb_char);
 int							d_treat_2(t_flag flag, long long dig, char *len, int nb_char);
 int							d_treat_3(t_flag flag, long long dig, char *len, int nb_char);
 int							d_treat_4(t_flag flag, long long dig, char *len, int nb_char);
 int							d_treat_5(t_flag flag, long long dig, char *len, int nb_char);
+int                         d_treat5bis(t_flag flag, long long dig, char *len, int nb_char);
 int							d_treat_6(t_flag flag, long long dig, char *len, int nb_char);
 int							d_treat_7(t_flag flag, long long dig, char *len, int nb_char);
 int                       	o_treat_1(t_flag flag, long long dig, char *nbr, int nb_char);
@@ -131,11 +144,13 @@ int                       	o_treat_4(t_flag flag, long long dig, char *nbr, int 
 int                       	o_treat_5(t_flag flag, long long dig, char *nbr, int nb_char);
 int                       	o_treat_6(t_flag flag, long long dig, char *nbr, int nb_char);
 int                      	o_treat_7(t_flag flag, long long dig, char *nbr, int nb_char);
+int                         o_treat_7bis(t_flag flag, long long dig, char *nbr, int nb_char);
 int                       	o_treat_8(t_flag flag, long long dig, char *nbr, int nb_char);
 int                         o_treat_9(t_flag flag, long long dig, char *nbr, int nb_char);
 int                       	o_treat_10(t_flag flag, long long dig, char *nbr, int nb_char);
 int                       	ox_treat_1(t_flag flag, long long dig, char *nbr, int nb_char);
 int                       	ox_treat_2(t_flag flag, long long dig, char *nbr, int nb_char);
+int                         ox_treat2bis(t_flag flag, long long dig, char *nbr, int nb_char);
 int                       	ox_treat_3(t_flag flag, long long dig, char *nbr, int nb_char);
 int                       	ox_treat_4(t_flag flag, long long dig, char *nbr, int nb_char);
 int                       	ox_treat_5(t_flag flag, long long dig, char *nbr, int nb_char);
@@ -147,10 +162,11 @@ int                       	u_treat_2(t_flag flag, long long dig, char *nbr, int 
 int                       	u_treat_3(t_flag flag, long long dig, char *nbr, int nb_char);
 int                       	u_treat_4(t_flag flag, long long dig, char *nbr, int nb_char);
 int                       	u_treat_5(t_flag flag, long long dig, char *nbr, int nb_char);
+int                         u_treat_5bis(t_flag flag, long long dig, char *nbr, int nb_char);
 int                         u_treat_6(t_flag flag, long long dig, char *nbr, int nb_char);
 int                       	u_treat_7(t_flag flag, long long dig, char *nbr, int nb_char);
-int             			wp_ptreat(t_flag flag, unsigned long long dig);
-//int			                wp_ddtreat(t_flag flag, t_out out);
+int                         wp_ptreat(t_flag flag, unsigned long long dig);
+char			            *dectohexa_p(unsigned long long n, t_flag flags, int i);
 //int                         ft_printf(const char *format,
 //        ...) __attribute__((format(printf,1,2)));
 #endif

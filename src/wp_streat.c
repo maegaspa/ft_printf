@@ -6,7 +6,7 @@
 /*   By: maegaspa <maegaspa@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/11 17:20:00 by hmichel      #+#   ##    ##    #+#       */
-/*   Updated: 2019/06/14 17:45:28 by maegaspa    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/06/16 19:58:57 by maegaspa    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -15,9 +15,8 @@
 
 static int	ft_printnull(t_flag flag, char *string)
 {
-	if (string)// || !flag.point || !flag.precision)
+	if (string)
 		return (0);
-	//write(1, "(null)", flag.precision): affiche un cara imaginaire lors du depassement
 	if (!flag.precision)
 	{
 		ft_putstr("(null)");
@@ -46,8 +45,10 @@ int			wp_streat(t_flag flag, va_list ap)
 	nb_char = 0;
 	string = va_arg(ap, char*);
 	putspace = (string) ? flag.width - ft_strlen(string) : flag.width;
-    putspace = (string && flag.point && flag.precision < ft_strlen(string)) ? flag.width - flag.precision : putspace;
-	putspace = (!string && !flag.point && flag.width) ? flag.width - 6 : putspace;
+	putspace = (string && flag.point && flag.precision < ft_strlen(string))
+		? flag.width - flag.precision : putspace;
+	putspace = (!string && !flag.point && flag.width)
+		? flag.width - 6 : putspace;
 	if (!flag.point && flag.width <= ft_strlen(string))
 		putspace = 0;
 	nb_char = s_treat_1(flag, string, nb_char, putspace);
@@ -58,9 +59,9 @@ int			wp_streat(t_flag flag, va_list ap)
 
 int			s_treat_1(t_flag flag, char *string, int nb_char, int putspace)
 {
-    int		i;
+	int		i;
 
-    i = -1;
+	i = -1;
 	if (flag.point && !flag.precision && flag.width > 0 && !flag.minus)
 	{
 		while (++i < flag.width)
@@ -69,8 +70,8 @@ int			s_treat_1(t_flag flag, char *string, int nb_char, int putspace)
 				nb_char = char_treat('0', nb_char);
 			else
 				nb_char = char_treat(' ', nb_char);
-        }
-    }
+		}
+	}
 	return (nb_char);
 }
 
@@ -79,17 +80,17 @@ int			s_treat_2(t_flag flag, char *string, int nb_char, int putspace)
 	int		i;
 
 	i = -1;
-    if (flag.width && !flag.minus)
-    {
-        if (!string || (putspace > 0))
-        {
-            while (++i < putspace)
-                if (flag.zero > 0)
+	if (flag.width && !flag.minus)
+	{
+		if (!string || (putspace > 0))
+		{
+			while (++i < putspace)
+				if (flag.zero > 0)
 					nb_char = char_treat('0', nb_char);
-                else
+				else
 					nb_char = char_treat(' ', nb_char);
-        }
-    }
+		}
+	}
 	if (flag.point && flag.precision > 0)
 	{
 		i = 0;
@@ -108,18 +109,19 @@ int			s_treat_3(t_flag flag, char *string, int nb_char, int putspace)
 	if ((flag.point && flag.precision > 0) || (!flag.point && !flag.precision))
 		nb_char += ft_printnull(flag, string);
 	if (!flag.point)
-	{	
+	{
 		ft_putstr(string);
 		nb_char += ft_strlen(string);
 	}
 	if (flag.width > 0 && flag.minus)
-    {
-        if (!string || (!flag.precision && (size_t)flag.width > ft_strlen(string)))
-            while (++i < putspace)
+	{
+		if (!string ||
+			(!flag.precision && (size_t)flag.width > ft_strlen(string)))
+			while (++i < putspace)
 				nb_char = char_treat(' ', nb_char);
 		if (string && flag.point)
 			while (nb_char < flag.width)
 				nb_char = char_treat(' ', nb_char);
-    }
-    return (nb_char);
+	}
+	return (nb_char);
 }

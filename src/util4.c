@@ -6,20 +6,20 @@
 /*   By: maegaspa <maegaspa@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/06/15 14:10:03 by maegaspa     #+#   ##    ##    #+#       */
-/*   Updated: 2019/06/15 14:43:51 by maegaspa    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/06/16 19:58:40 by maegaspa    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../includes/printf.h"
 
-void		ft_putnstr(char const *s, int size)
+void					ft_putnstr(char const *s, int size)
 {
 	if (s != 0)
 		write(1, s, size);
 }
 
-char	                *dectohexa(unsigned long long n, t_flag flags, int i)
+char					*dectohexa(unsigned long long n, t_flag flags, int i)
 {
 	char				*seg;
 	int					j;
@@ -46,4 +46,40 @@ char	                *dectohexa(unsigned long long n, t_flag flags, int i)
 		n = n / 16;
 	}
 	return (ft_strrev(cut_str_long(seg, flags)));
+}
+
+int						ft_atoi_2(char const *str)
+{
+	int		i;
+	int		nbr;
+
+	i = 0;
+	nbr = 0;
+	while (str[i] == ' ' || str[i] == '\n' || str[i] == '\t' || str[i] == '\v'
+			|| str[i] == '\f' || str[i] == '\r' || ft_isalpha(str[i])
+			|| str[i] == '%' || str[i] == '0' || str[i] == '+' || str[i] == '-'
+			|| str[i] == '#' || str[i] == 'l' || str[i] == 'h' || str[i] == 'L')
+		i++;
+	if (str[i] == '+')
+		i++;
+	while (str[i] >= '0' && str[i] <= '9')
+		nbr = nbr * 10 + str[i++] - '0';
+	return (nbr);
+}
+
+char					*ft_strcaps(char *str)
+{
+	int		i;
+
+	i = 0;
+	while (str[i])
+	{
+		while (str[i] >= 'a' && str[i] <= 'z')
+		{
+			str[i] -= 32;
+			i++;
+		}
+		i++;
+	}
+	return (str);
 }
