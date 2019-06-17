@@ -6,7 +6,7 @@
 /*   By: maegaspa <maegaspa@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/06/15 14:12:02 by maegaspa     #+#   ##    ##    #+#       */
-/*   Updated: 2019/06/16 19:58:43 by maegaspa    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/06/17 18:42:28 by maegaspa    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -37,6 +37,7 @@ char			*nbr_dig(long long dig, t_flag flag, char *str)
 		else
 			str = ft_itoa(dig);
 	}
+	free(str);
 	return (str);
 }
 

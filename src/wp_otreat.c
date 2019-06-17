@@ -6,7 +6,7 @@
 /*   By: maegaspa <maegaspa@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/13 16:32:33 by maegaspa     #+#   ##    ##    #+#       */
-/*   Updated: 2019/06/16 19:58:49 by maegaspa    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/06/17 18:42:34 by maegaspa    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -36,6 +36,7 @@ int				wp_otreat(t_flag flag, long long dig)
 	nb_char = o_treat_8(flag, dig, nbr, nb_char);
 	nb_char = o_treat_9(flag, dig, nbr, nb_char);
 	nb_char = o_treat_10(flag, dig, nbr, nb_char);
+	free(nbr);
 	return (ft_strlen(nbr) + nb_char);
 }
 

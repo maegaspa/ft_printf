@@ -6,7 +6,7 @@
 /*   By: maegaspa <maegaspa@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/06/14 17:55:34 by maegaspa     #+#   ##    ##    #+#       */
-/*   Updated: 2019/06/16 17:41:23 by maegaspa    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/06/17 18:42:20 by maegaspa    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -36,6 +36,14 @@ int			ft_putstr_add(char const *str)
 	if (str != NULL)
 		write(1, str, ft_strlen(str));
 	return (ft_strlen(str));
+}
+
+int			ft_pow(int nb, int pow)
+{
+	if (pow == 0)
+		return (1);
+	else
+		return (nb * ft_pow(nb, pow - 1));
 }
 
 char		*ft_itoa_base(int value, int base)

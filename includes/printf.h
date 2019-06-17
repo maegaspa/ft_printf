@@ -6,7 +6,7 @@
 /*   By: maegaspa <maegaspa@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/17 13:23:57 by maegaspa     #+#   ##    ##    #+#       */
-/*   Updated: 2019/06/16 19:18:22 by maegaspa    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/06/17 18:42:18 by maegaspa    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -27,6 +27,7 @@ typedef	struct				s_float
 	int						preci;
 	int						i;
 	long					enti;
+	char					*itoa;
 }							t_float;
 
 typedef struct              s_flag
@@ -79,6 +80,9 @@ typedef struct              s_count
     int                     i;
     int                     j;
 }                           t_count;
+void						free_compt(t_compt *compt);
+char						*ft_itoa_base(int value, int base);
+int							ft_putstr_add(char const *str);
 int							is_no_flag(t_compt *compt, t_flag *flags, char *str);
 int							give_info(t_compt *compt, t_flag flags, va_list va, char *str);
 int							if_is_true(char *str, t_flag flags, t_compt compt);
@@ -90,10 +94,9 @@ t_flag		                flag_init(t_flag flag);
 t_out		                out_init(void);
 int			                is_conv(char c);
 int							parse(char *str, va_list ap);
-int		                	parse_2(t_compt compt, t_flag flags, int nb_char, char *str);
-void		                parse_3(t_compt compt, t_flag flags, int nb_char, char *str);
-void		                parse_4(t_compt compt, t_flag flags, char *str);
-int 		                parse_5(t_compt compt, t_flag flags, int nb_char, char *str);
+int		                	parse_2(t_compt *compt, t_flag flags, int nb_char, char *str);
+void		                parse_3(t_compt *compt, t_flag *flags, char *str);
+int 		                parse_4(t_compt *compt, t_flag *flags, char *str);
 int                         is_minus(char *len);
 int                         ft_printf(const char *format, ...);
 int                         resolve_option(char *str, va_list ap, t_flag flag, int nb_char);
