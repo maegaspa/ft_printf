@@ -6,14 +6,14 @@
 /*   By: hmichel <hmichel@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/20 19:35:54 by hmichel      #+#   ##    ##    #+#       */
-/*   Updated: 2019/06/18 05:35:34 by hmichel     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/06/18 15:52:27 by hmichel     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../includes/printf.h"
 
-static int	ft_rounded1(double flo, t_flag flag, t_float *sfloat)
+static int		ft_rounded1(double flo, t_flag flag, t_float *sfloat)
 {
 	if ((long)flo > 5 || ((long)flo == 5 && (flo - (long)flo) > 0.0))
 	{
@@ -42,32 +42,45 @@ static int	ft_rounded1(double flo, t_flag flag, t_float *sfloat)
 	return (1);
 }
 
+static int		ft_rounded2(double flo, t_flag flag, t_float *sfloat)
+{
+	if (!(sfloat->itoa = ft_itoa_base(ABS((long)flo), 10)))
+		return (0);
+	if (!(sfloat->temp = ft_strjoin(sfloat->digit,
+		sfloat->itoa)))
+		return (0);
+	free(sfloat->itoa);
+	free(sfloat->digit);
+	if (!(sfloat->digit = ft_strdup(sfloat->temp)))
+		return (0);
+	free(sfloat->temp);
+	return (1);
+}
+/*
+int				ft_sfloatinit(double flo, t_flag flag, t_float *sfloat)
+{
+	sfloat->preci = flag.precision;
+	sfloat->enti = (long)flo;
+	if (!(sfloat->digit = ft_strnew(0)))
+		return (0);
+	sfloat->digit[0] = '\0';
+	sfloat->i = 1;
+	return (1);
+}
+*/
 static char		*ft_rounded(double flo, t_flag flag, int option)
 {
 	t_float		sfloat;
 
-	
-	sfloat.preci = flag.precision;
-	sfloat.enti = (long)flo;
-	flo = flo - (double)sfloat.enti;
-	if (!(sfloat.digit = ft_strnew(0)))
+	if (!(ft_sfloatinit(flo, flag, &sfloat)))
 		return (NULL);
-	sfloat.digit[0] = '\0';
-	sfloat.i = 1;
+	flo = flo - (double)sfloat.enti;
 	while (sfloat.preci--)
 	{
 		flo = flo * 10;
-		if(!(sfloat.itoa = ft_itoa_base(ABS((long)flo), 10)))
+		if (!(ft_rounded2(flo, flag, &sfloat)))
 			return (NULL);
-		if (!(sfloat.temp = ft_strjoin(sfloat.digit,
-			sfloat.itoa)))
-			return (NULL);
-		free(sfloat.itoa);
 		flo = flo - (long)flo;
-		free(sfloat.digit);
-		if (!(sfloat.digit = ft_strdup(sfloat.temp)))
-			return (NULL);
-		free(sfloat.temp);
 	}
 	if (!(ft_rounded1(ft_pow10(ABS(flo), 1), flag, &sfloat)))
 	{
@@ -83,12 +96,26 @@ static char		*ft_rounded(double flo, t_flag flag, int option)
 	free(sfloat.temp);
 	return (sfloat.digit);
 }
-
+/*
+int				ft_putzero(int zero, char **temp, char **nb)
+{
+	while (zero-- != 0 && zero > 0)
+	{
+		free(*temp);
+		*temp = ft_strdup(*nb);
+		free(*nb);
+		if (!(*nb = ft_strjoin(*temp, "0")))
+			return (0);
+	}
+	return (1);
+}
+*/
 static char		*ft_ftoa(double f, t_flag flag)
 {
 	char		*nb;
 	char		*temp;
 	int			zero;
+	char		*caleak;
 
 	if (!(nb = ft_rounded(f, flag, 1)))
 		return (NULL);
@@ -97,21 +124,20 @@ static char		*ft_ftoa(double f, t_flag flag)
 	if (!(temp = ft_strjoin(nb, ".")))
 		return (NULL);
 	free(nb);
-	zero = flag.precision - ft_strlen(ft_rounded(f, flag, 0));
-	if (!(nb = ft_strjoin(temp, ft_rounded(f, flag, 0))))
+	nb = ft_rounded(f, flag, 0);
+	zero = flag.precision - ft_strlen(nb);
+	free(nb);
+	if (!(caleak = ft_rounded(f, flag, 0)))
 		return (NULL);
-	while (zero-- != 0 && zero > 0)
-	{
-		free(temp);
-		temp = ft_strdup(nb);
-		free(nb);
-		if (!(nb = ft_strjoin(temp, "0")))
-			return (NULL);
-	}
+	if (!(nb = ft_strjoin(temp, caleak)))
+		return (NULL);
+	free(caleak);
+	if (!(ft_putzero(zero, &temp, &nb)))
+		return (NULL);
 	free(temp);
 	return (nb);
 }
-
+/*
 static	int		ft_print_before(t_flag flag, int putspace, char *str, double nb)
 {
 	int		nb_char;
@@ -132,7 +158,7 @@ static	int		ft_print_before(t_flag flag, int putspace, char *str, double nb)
 			nb_char += ft_putchar_add('0');
 	return (nb_char);
 }
-
+*/
 int				wp_ftreat(t_flag flag, double nb)
 {
 	int		nb_char;
