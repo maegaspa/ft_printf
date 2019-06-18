@@ -3,17 +3,17 @@
 /*                                                              /             */
 /*   wp_ftreat.c                                      .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: maegaspa <maegaspa@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: hmichel <hmichel@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/20 19:35:54 by hmichel      #+#   ##    ##    #+#       */
-/*   Updated: 2019/06/17 18:42:33 by maegaspa    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/06/18 04:12:27 by hmichel     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../includes/printf.h"
 
-static char	*ft_rounded1(double flo, t_flag flag, int option, t_float sfloat)
+static t_float	ft_rounded1(double flo, t_flag flag, t_float sfloat)
 {
 	if ((long)flo > 5 || ((long)flo == 5 && (flo - (long)flo) > 0.0))
 	{
@@ -33,16 +33,16 @@ static char	*ft_rounded1(double flo, t_flag flag, int option, t_float sfloat)
 			sfloat.i++;
 		}
 		if (ft_strlen(sfloat.digit) == 0)
-			sfloat.enti += 1;
+			sfloat.enti += sfloat.enti / ABS(sfloat.enti);
 	}
+	else if ((long)flo == 5 && (flag.precision == 1 || (flag.precision == 0 &&
+		flag.point == 1)) && (sfloat.enti % 2 == 1))
+		sfloat.enti += 1;
 	sfloat.temp = ft_itoa_base(sfloat.enti, 10);
-	if (option)
-		return (sfloat.temp);
-	free(sfloat.temp);
-	return (sfloat.digit);
+	return (sfloat);
 }
 
-static char	*ft_rounded(double flo, t_flag flag, int option)
+static char		*ft_rounded(double flo, t_flag flag, int option)
 {
 	t_float		sfloat;
 
@@ -54,24 +54,24 @@ static char	*ft_rounded(double flo, t_flag flag, int option)
 	while (sfloat.preci--)
 	{
 		flo = flo * 10;
-		sfloat.itoa = ft_itoa_base((long)flo, 10);
+		sfloat.itoa = ft_itoa_base(ABS((long)flo), 10);
 		if (!(sfloat.temp = ft_strjoin(sfloat.digit,
 			sfloat.itoa)))
 			return (NULL);
 		free(sfloat.itoa);
 		flo = flo - (long)flo;
 		free(sfloat.digit);
-		sfloat.digit = ft_strdup(sfloat.temp);
+		if (!(sfloat.digit = ft_strdup(sfloat.temp)))
+			return (NULL);
 		free(sfloat.temp);
 	}
-	flo = ft_pow10(flo, 1);
-	if ((long)flo == 5 && (flag.precision == 1 || (flag.precision == 0 &&
-		flag.point == 1)) && (sfloat.enti % 2 == 1))
-		sfloat.enti += 1;
-	return (ft_rounded1(flo, flag, option, sfloat));
+	sfloat = ft_rounded1(ft_pow10(ABS(flo), 1), flag, sfloat);
+	if (option)
+		return (sfloat.temp);
+	return (sfloat.digit);
 }
 
-static char	*ft_ftoa(double f, t_flag flag)
+static char		*ft_ftoa(double f, t_flag flag)
 {
 	char		*nb;
 	char		*temp;
@@ -87,7 +87,7 @@ static char	*ft_ftoa(double f, t_flag flag)
 	zero = flag.precision - ft_strlen(ft_rounded(f, flag, 0));
 	if (!(nb = ft_strjoin(temp, ft_rounded(f, flag, 0))))
 		return (NULL);
-	while (zero-- != 0)
+	while (zero-- != 0 && zero > 0)
 	{
 		free(temp);
 		temp = ft_strdup(nb);
@@ -95,34 +95,32 @@ static char	*ft_ftoa(double f, t_flag flag)
 		if (!(nb = ft_strjoin(temp, "0")))
 			return (NULL);
 	}
+	free(temp);
 	return (nb);
 }
 
-static	int	ft_print_before(t_flag flag, int putspace, int nb_char, double nb)
+static	int		ft_print_before(t_flag flag, int putspace, char *str, double nb)
 {
-	if (flag.space)
+	int		nb_char;
+
+	nb_char = 0;
+	if (flag.space && !flag.plus)
 		nb_char += ft_putchar_add(' ');
-	if (putspace > 0 && !flag.minus)
-	{
+	if (putspace > 0 && !flag.minus && !flag.zero)
 		while (putspace--)
-		{
-			if (flag.zero)
-				nb_char += ft_putchar_add('0');
-			else
-				nb_char += ft_putchar_add(' ');
-		}
-	}
+			nb_char += ft_putchar_add(' ');
 	if (flag.plus)
-	{
 		if (nb >= 0)
 			nb_char += ft_putchar_add('+');
-		if (nb < 0)
-			nb_char += ft_putchar_add('-');
-	}
+	if (nb < 0 && ft_strlen(str) > 0 && str[0] != '-')
+		nb_char += ft_putchar_add('-');
+	if (putspace > 0 && !flag.minus && flag.zero)
+		while (putspace--)
+			nb_char += ft_putchar_add('0');
 	return (nb_char);
 }
 
-int			wp_ftreat(t_flag flag, double nb)
+int				wp_ftreat(t_flag flag, double nb)
 {
 	int		nb_char;
 	char	*str;
@@ -136,7 +134,7 @@ int			wp_ftreat(t_flag flag, double nb)
 										flag.width - flag.plus;
 	if ((flag.hashtag && flag.point && !flag.precision) || flag.space)
 		putspace -= 1;
-	nb_char = ft_print_before(flag, putspace, nb_char, nb);
+	nb_char += ft_print_before(flag, putspace, str, nb);
 	if (str)
 		nb_char += ft_strlen(str);
 	ft_putstr(str);
