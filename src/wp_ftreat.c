@@ -6,55 +6,59 @@
 /*   By: hmichel <hmichel@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/20 19:35:54 by hmichel      #+#   ##    ##    #+#       */
-/*   Updated: 2019/06/18 04:12:27 by hmichel     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/06/18 05:35:34 by hmichel     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../includes/printf.h"
 
-static t_float	ft_rounded1(double flo, t_flag flag, t_float sfloat)
+static int	ft_rounded1(double flo, t_flag flag, t_float *sfloat)
 {
 	if ((long)flo > 5 || ((long)flo == 5 && (flo - (long)flo) > 0.0))
 	{
-		sfloat.i = 1;
-		while (ft_strlen(sfloat.digit) >= sfloat.i)
+		while (ft_strlen(sfloat->digit) >= sfloat->i)
 		{
-			if (ft_strlen(sfloat.digit) == sfloat.i &&
-				sfloat.digit[ft_strlen(sfloat.digit) - sfloat.i] == '9')
-				sfloat.enti += 1;
-			if (sfloat.digit[ft_strlen(sfloat.digit) - sfloat.i] != '9')
+			if (ft_strlen(sfloat->digit) == sfloat->i &&
+				sfloat->digit[ft_strlen(sfloat->digit) - sfloat->i] == '9')
+				sfloat->enti += 1;
+			if (sfloat->digit[ft_strlen(sfloat->digit) - sfloat->i] != '9')
 			{
-				sfloat.digit[ft_strlen(sfloat.digit) - sfloat.i] += 1;
+				sfloat->digit[ft_strlen(sfloat->digit) - sfloat->i] += 1;
 				break ;
 			}
-			else if (sfloat.digit[ft_strlen(sfloat.digit) - sfloat.i] == '9')
-				sfloat.digit[ft_strlen(sfloat.digit) - sfloat.i] = '0';
-			sfloat.i++;
+			else if (sfloat->digit[ft_strlen(sfloat->digit) - sfloat->i] == '9')
+				sfloat->digit[ft_strlen(sfloat->digit) - sfloat->i] = '0';
+			sfloat->i++;
 		}
-		if (ft_strlen(sfloat.digit) == 0)
-			sfloat.enti += sfloat.enti / ABS(sfloat.enti);
+		if (ft_strlen(sfloat->digit) == 0)
+			sfloat->enti += sfloat->enti / ABS(sfloat->enti);
 	}
 	else if ((long)flo == 5 && (flag.precision == 1 || (flag.precision == 0 &&
-		flag.point == 1)) && (sfloat.enti % 2 == 1))
-		sfloat.enti += 1;
-	sfloat.temp = ft_itoa_base(sfloat.enti, 10);
-	return (sfloat);
+		flag.point == 1)) && (sfloat->enti % 2 == 1))
+		sfloat->enti += 1;
+	if (!(sfloat->temp = ft_itoa_base(sfloat->enti, 10)))
+		return (0);
+	return (1);
 }
 
 static char		*ft_rounded(double flo, t_flag flag, int option)
 {
 	t_float		sfloat;
 
+	
 	sfloat.preci = flag.precision;
 	sfloat.enti = (long)flo;
 	flo = flo - (double)sfloat.enti;
 	if (!(sfloat.digit = ft_strnew(0)))
 		return (NULL);
+	sfloat.digit[0] = '\0';
+	sfloat.i = 1;
 	while (sfloat.preci--)
 	{
 		flo = flo * 10;
-		sfloat.itoa = ft_itoa_base(ABS((long)flo), 10);
+		if(!(sfloat.itoa = ft_itoa_base(ABS((long)flo), 10)))
+			return (NULL);
 		if (!(sfloat.temp = ft_strjoin(sfloat.digit,
 			sfloat.itoa)))
 			return (NULL);
@@ -65,9 +69,18 @@ static char		*ft_rounded(double flo, t_flag flag, int option)
 			return (NULL);
 		free(sfloat.temp);
 	}
-	sfloat = ft_rounded1(ft_pow10(ABS(flo), 1), flag, sfloat);
+	if (!(ft_rounded1(ft_pow10(ABS(flo), 1), flag, &sfloat)))
+	{
+		free(sfloat.digit);
+		free(sfloat.temp);
+		return (NULL);
+	}
 	if (option)
+	{
+		free(sfloat.digit);
 		return (sfloat.temp);
+	}
+	free(sfloat.temp);
 	return (sfloat.digit);
 }
 
