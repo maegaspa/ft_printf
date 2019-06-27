@@ -6,33 +6,34 @@
 /*   By: maegaspa <maegaspa@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/06/15 14:12:02 by maegaspa     #+#   ##    ##    #+#       */
-/*   Updated: 2019/06/17 18:42:28 by maegaspa    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/06/25 18:03:43 by maegaspa    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../includes/printf.h"
+#include <stdio.h>
 
 char			*nbr_dig(long long dig, t_flag flag, char *str)
 {
 	if (flag.conv == 'u')
 	{
-		if (flag._l)
+		if (flag.l)
 			str = ft_ulltoa(dig);
-		else if (flag._h == 1)
+		else if (flag.h == 1)
 			str = ft_uhtoa(dig);
-		else if (flag._h == 2)
-			str = ft_hhtoa(dig);
+		else if (flag.h == 2)
+			str = ft_uhhtoa(dig);
 		else
 			str = ft_utoa(dig);
 	}
 	if (flag.conv == 'i' || flag.conv == 'd')
 	{
-		if (flag._l)
+		if (flag.l)
 			str = ft_lltoa(dig);
-		else if (flag._h == 1)
+		else if (flag.h == 1)
 			str = ft_htoa(dig);
-		else if (flag._h == 2)
+		else if (flag.h == 2)
 			str = ft_hhtoa(dig);
 		else
 			str = ft_itoa(dig);
@@ -65,21 +66,21 @@ int				choose_xo(t_flag flag, va_list ap, int nb_char, t_out out)
 
 int				choose_dig(t_flag flag, int nb_char, va_list ap, t_out out)
 {
-	if (flag._l && flag.conv == 'u')
+	if (flag.l && flag.conv == 'u')
 		nb_char += choose_dig_1(ap, flag, out, nb_char);
-	else if (flag.conv == 'u' && !flag._h && flag._l)
+	else if (flag.conv == 'u' && !flag.h && flag.l)
 		nb_char += choose_dig_2(ap, flag, out, nb_char);
-	else if (flag.conv == 'u' && flag._h)
+	else if (flag.conv == 'u' && flag.h)
 	{
-		out.sh_int = va_arg(ap, unsigned short);
+		out.sh_int = va_arg(ap, int);
 		nb_char += wp_utreat(flag, out.sh_int);
 	}
-	else if (flag._l && (flag.conv == 'd' || flag.conv == 'i'))
+	else if (flag.l && (flag.conv == 'd' || flag.conv == 'i'))
 	{
 		out.ld = va_arg(ap, long long);
 		nb_char += wp_dtreat(flag, out.ld);
 	}
-	else if (flag.conv == 'u' && !flag._h && !flag._l)
+	else if (flag.conv == 'u' && !flag.h && !flag.l)
 	{
 		out.uns_integ = va_arg(ap, unsigned int);
 		nb_char += wp_utreat(flag, out.uns_integ);
@@ -101,7 +102,7 @@ int				choose_dig_1(va_list ap, t_flag flag, t_out out, int nb_char)
 
 int				choose_dig_2(va_list ap, t_flag flag, t_out out, int nb_char)
 {
-	out.uns_integ = va_arg(ap, unsigned int);
-	nb_char = wp_utreat(flag, out.uns_integ);
+	out.yessai = va_arg(ap, unsigned long long);
+	nb_char = wp_utreat(flag, out.yessai);
 	return (nb_char);
 }

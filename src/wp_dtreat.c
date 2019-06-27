@@ -6,7 +6,7 @@
 /*   By: maegaspa <maegaspa@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/11 16:42:08 by maegaspa     #+#   ##    ##    #+#       */
-/*   Updated: 2019/06/17 18:42:31 by maegaspa    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/06/25 18:03:39 by maegaspa    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -29,10 +29,12 @@ int				wp_dtreat(t_flag flag, long long dig)
 	nb_char = 0;
 	i = -1;
 	len = nbr_dig(dig, flag, len);
+	if (flag.width && flag.plus && !flag.point && dig >= 0)
+		nb_char = char_treat('+', nb_char);
 	nb_char = d_treat_1(flag, dig, len, nb_char);
 	nb_char = d_treat_2(flag, dig, len, nb_char);
 	nb_char = d_treat_3(flag, dig, len, nb_char);
-	if (flag.plus > 0 && !flag.precision && !flag.width && dig >= 0)
+	if ((flag.plus > 0 && !flag.precision && !flag.width && dig >= 0))
 		nb_char = char_treat('+', nb_char);
 	if (flag.width && flag.point && flag.precision)
 	{
@@ -55,19 +57,29 @@ int				d_treat_1(t_flag flag, long long dig, char *len, int nb_char)
 	if (flag.minus > 0 && flag.precision < 1 && (!(dig == 0)))
 		ft_putstr(len);
 	if (flag.minus > 0 && flag.width && !flag.point && dig == 0)
-		ft_putchar('0');
+		nb_char = char_treat('0', nb_char);
 	putspace = flag.width - ft_strlen(len);
-	if (flag.plus > 0 && ((flag.width > 0 && flag.point > 0 &&
+	if (flag.plus > 0 && dig >= 0 && ((flag.width > 0 && flag.point > 0 &&
 		flag.precision > flag.width)
-		|| (!flag.width && flag.point > 0)) && dig >= 0)
+		|| (!flag.width && flag.point > 0)))
 		nb_char = char_treat('+', nb_char);
-	if (flag.space > 0 && !flag.plus && flag.width <= ft_strlen(len))
+	if (flag.space > 0 && !flag.plus && flag.width <= ft_strlen(len) && dig >= 0)
 		nb_char = char_treat(' ', nb_char);
-	if (dig == 0 && flag.width & flag.point)
+	if (dig == 0 && flag.width && flag.point)
 	{
+		putspace = flag.width;
+		if (flag.width > flag.precision)
+			putspace = flag.width - flag.precision;
+		if (flag.plus > 0)
+			putspace -=1;
 		if ((size_t)flag.width > 0)
-			while (++i < (size_t)flag.width)
+			while (++i < putspace)
 				nb_char = char_treat(' ', nb_char);
+		putspace = flag.precision;
+		i = -1;
+		if (flag.precision && !flag.plus)
+			while (++i < putspace)
+				nb_char = char_treat('0', nb_char);
 	}
 	return (nb_char);
 }
@@ -79,20 +91,33 @@ int				d_treat_2(t_flag flag, long long dig, char *len, int nb_char)
 
 	putspace = flag.width - ft_strlen(len);
 	i = -1;
-	if (flag.width > 0 && !flag.precision)
+	if (flag.width > 0 && !flag.precision && !flag.point)
 	{
 		if (dig == 0 && !flag.minus)
 			putspace = flag.width;
-		if (dig < 0 && flag.zero)
+		if (flag.space)
+		{
+			nb_char = char_treat(' ', nb_char);
+			putspace -= 1;
+		}
+		if (dig < 0 && flag.zero && !flag.minus)
 			ft_putchar('-');
+		if (flag.plus > 0 && dig >= 0)
+			putspace -= 1;
 		if ((size_t)flag.width > ft_strlen(len))
 		{
 			while (++i < putspace)
-				if (flag.zero > 0 && !flag.point)
+				if (flag.zero > 0 && !flag.point && !flag.minus)
 					nb_char = char_treat('0', nb_char);
 				else
 					nb_char = char_treat(' ', nb_char);
 		}
+	}
+	if (flag.width && !flag.precision && flag.point && dig > 0)
+	{
+		while (++i < putspace)
+			if (flag.width > ft_strlen(len))
+				nb_char = char_treat(' ', nb_char);
 	}
 	if (dig < 0 && !flag.zero && !flag.point && flag.width && !flag.minus)
 		ft_putchar('-');

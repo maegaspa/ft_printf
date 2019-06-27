@@ -6,7 +6,7 @@
 /*   By: maegaspa <maegaspa@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/13 16:32:33 by maegaspa     #+#   ##    ##    #+#       */
-/*   Updated: 2019/06/17 18:42:34 by maegaspa    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/06/25 18:03:40 by maegaspa    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -73,7 +73,7 @@ int				o_treat_2(t_flag flag, long long dig, char *nbr, int nb_char)
 
 	i = -1;
 	putspace = 0;
-	if (flag.precision > 0 && flag.point && flag.zero)
+	if (flag.precision > 0 && flag.point && flag.zero && !flag.width)
 	{
 		putspace = flag.precision - ft_strlen(nbr);
 		if (dig == 0)

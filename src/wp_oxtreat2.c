@@ -6,7 +6,7 @@
 /*   By: maegaspa <maegaspa@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/06/14 16:56:59 by maegaspa     #+#   ##    ##    #+#       */
-/*   Updated: 2019/06/15 15:31:04 by maegaspa    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/06/25 18:03:41 by maegaspa    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -23,11 +23,13 @@ int				ox_treat_5(t_flag flag, long long dig, char *nbr, int nb_char)
 	if (flag.point && flag.precision)
 	{
 		putspace = flag.width - flag.precision - ft_strlen(nbr) + 1;
-		if (flag.zero && flag.width > flag.precision)
+		if (flag.width > flag.precision)
 			putspace = flag.width - ft_strlen(nbr);
 		if (flag.hashtag > 0)
 			putspace -= 2;
-		if ((size_t)flag.width > ft_strlen(nbr) && !flag.minus)
+		if (flag.width > ft_strlen(nbr) && flag.precision > ft_strlen(nbr))
+			putspace = flag.width - ft_strlen(nbr) - (flag.precision - ft_strlen(nbr));
+		if ((size_t)flag.width > ft_strlen(nbr) && !flag.minus && !flag.hashtag)
 			while (++i < putspace)
 				nb_char = char_treat(' ', nb_char);
 		putspace = flag.precision - ft_strlen(nbr);
@@ -50,7 +52,7 @@ int				ox_treat_6(t_flag flag, long long dig, char *nbr, int nb_char)
 	putspace = 0;
 	i = -1;
 	if (flag.hashtag > 0 && (!(dig == 0)) &&
-		(!flag.width && !flag.precision && !flag.zero))
+		((!flag.width && !flag.precision && !flag.zero && !flag.minus)))
 	{
 		if (flag.conv == 'x')
 			nb_char = multichar_treat("0x", nb_char);
@@ -63,7 +65,7 @@ int				ox_treat_6(t_flag flag, long long dig, char *nbr, int nb_char)
 		putspace = flag.width - ft_strlen(nbr);
 		if (flag.hashtag > 0)
 			putspace -= 2;
-		if ((size_t)flag.width > ft_strlen(nbr))
+		if ((size_t)flag.width > ft_strlen(nbr) && !flag.minus)
 			while (++i < putspace)
 				nb_char = char_treat('0', nb_char);
 	}
@@ -99,7 +101,7 @@ int				ox_treat_8(t_flag flag, long long dig, char *nbr, int nb_char)
 
 	i = -1;
 	putspace = 0;
-	if (flag.width > 0 && flag.point > 0 && !flag.precision && flag.minus > 0)
+	if (flag.width > 0 && flag.point > 0 && !flag.precision && flag.minus > 0 && !flag.zero)
 	{
 		putspace = flag.width - ft_strlen(nbr);
 		if ((size_t)flag.width > ft_strlen(nbr))

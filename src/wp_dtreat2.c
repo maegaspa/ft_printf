@@ -6,7 +6,7 @@
 /*   By: maegaspa <maegaspa@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/06/14 17:05:13 by maegaspa     #+#   ##    ##    #+#       */
-/*   Updated: 2019/06/16 19:58:47 by maegaspa    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/06/25 16:27:42 by maegaspa    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -19,22 +19,24 @@ int				d_treat_4(t_flag flag, long long dig, char *len, int nb_char)
 	int			i;
 
 	i = -1;
-	putspace = flag.width - flag.precision;
 	if (flag.minus > 0 && (!(dig < 0)) && flag.width > flag.precision)
 	{
+		if (flag.plus)
+			nb_char = char_treat('+', nb_char);
+		putspace = flag.precision - ft_strlen(len);
+		if ((size_t)flag.precision > ft_strlen(len))
+			while (++i < putspace)
+				nb_char = char_treat('0', nb_char);
 		ft_putstr(len);
-		putspace = flag.width;
 	}
-	if (is_minus(len) == 1 && flag.precision > 0)
-	{
-		len[0] = len[1];
-		len[1] = '\0';
-		ft_putchar('-');
-	}
-	if (flag.plus > 0 || flag.minus > 0)
+	putspace = flag.width - ft_strlen(len);
+	if (flag.precision > ft_strlen(len))
+		putspace = flag.width - flag.precision;
+	if (flag.plus > 0)
 		putspace -= 1;
 	if (len[0] == '0')
 		len[0] = '\0';
+	i = -1;
 	if ((size_t)flag.width > ft_strlen(len) && dig > 0)
 		while (++i < putspace)
 			nb_char = char_treat(' ', nb_char);
@@ -47,13 +49,22 @@ int				d_treat_5(t_flag flag, long long dig, char *len, int nb_char)
 	int			i;
 
 	i = -1;
+	if (flag.width > flag.precision && flag.plus && !flag.minus && !flag.zero)
+		nb_char = char_treat('+', nb_char);
 	if (dig == 0 && flag.width > flag.precision)
 	{
+		if (flag.plus)
+			nb_char = char_treat('+', nb_char);
 		putspace = flag.width - flag.precision - 1;
-		while (++i < putspace)
+		while (++i < putspace && !flag.zero)
 			nb_char = char_treat(' ', nb_char);
+		i = -1;
+		if (flag.plus > 0)
+			putspace -= 1;
+		while (++i < putspace && flag.zero)
+			nb_char = char_treat('0', nb_char);
 	}
-	if (flag.plus > 0)
+	if (flag.plus > 0 && !flag.minus && (!(flag.width > flag.precision)))
 		nb_char = char_treat('+', nb_char);
 	return (nb_char);
 }
@@ -65,17 +76,28 @@ int				d_treat5bis(t_flag flag, long long dig, char *len, int nb_char)
 
 	putspace = flag.precision - ft_strlen(len);
 	i = -1;
-	if ((size_t)flag.precision > ft_strlen(len))
+	if (((size_t)flag.precision > ft_strlen(len) && flag.precision > flag.width && (!(dig < 0)))
+		|| (flag.precision && (!(dig == 0)) && !flag.minus && (!(dig < 0))))
 		while (++i < putspace)
 			nb_char = char_treat('0', nb_char);
 	if (dig < 0 && flag.precision && flag.width && flag.point)
 	{
-		putspace = flag.width - ft_strlen(len) - flag.precision;
-		ft_putstr(len);
+		putspace = flag.width - ft_strlen(len) - 2;
+		if (flag.precision < ft_strlen(len))
+			putspace = flag.width - flag.precision - 3;
 		i = -1;
 		if ((size_t)flag.width > ft_strlen(len))
 			while (++i < putspace)
 				nb_char = char_treat(' ', nb_char);
+		ft_putchar('-');
+		putspace = flag.precision - ft_strlen(len) + 1;
+		i = -1;
+		if (flag.precision > 1)
+			while (++i < putspace)
+				nb_char = char_treat('0', nb_char);
+		i = 0;
+		while (len[++i] != '\0')
+			ft_putchar(len[i]);	
 	}
 	return (nb_char);
 }
@@ -106,12 +128,12 @@ int				d_treat_7(t_flag flag, long long dig, char *len, int nb_char)
 	else if (flag.minus > 0 && !flag.precision)
 		return (nb_char);
 	else if (flag.minus > 0 && (flag.width > flag.precision) && flag.point)
-		return (ft_strlen(len) + nb_char);
+		return (nb_char);
 	else if (dig < 0 && flag.precision && flag.width && flag.point)
-		return (ft_strlen(len));
+		return (nb_char);
 	else if (dig < 0 && ((!flag.precision && flag.width)
 		|| (flag.precision && !flag.width)))
-		while (len[i++] != '\0')
+		while (len[++i] != '\0')
 			ft_putchar(len[i]);
 	else
 		ft_putstr(len);

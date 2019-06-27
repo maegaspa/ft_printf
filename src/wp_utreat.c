@@ -6,14 +6,14 @@
 /*   By: maegaspa <maegaspa@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/15 18:18:37 by maegaspa     #+#   ##    ##    #+#       */
-/*   Updated: 2019/06/16 19:58:58 by maegaspa    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/06/25 18:03:38 by maegaspa    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../includes/printf.h"
 
-int				wp_utreat(t_flag flag, long long dig)
+int				wp_utreat(t_flag flag, unsigned long long dig)
 {
 	int			putspace;
 	int			nb_char;

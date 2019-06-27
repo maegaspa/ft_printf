@@ -6,7 +6,7 @@
 /*   By: maegaspa <maegaspa@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/06/15 14:10:03 by maegaspa     #+#   ##    ##    #+#       */
-/*   Updated: 2019/06/16 19:58:40 by maegaspa    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/06/18 15:02:32 by maegaspa    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -25,7 +25,7 @@ char					*dectohexa(unsigned long long n, t_flag flags, int i)
 	int					j;
 	int					tmp;
 
-	if (n >= 429496729 && n <= 4563402751 && !flags._l)
+	if (n >= 429496729 && n <= 4563402751 && !flags.l)
 		n = n - 4294967296;
 	if (n == 0)
 		return (octa_zero(seg));
@@ -82,4 +82,15 @@ char					*ft_strcaps(char *str)
 		i++;
 	}
 	return (str);
+}
+
+int						ft_is_in_string(char c)
+{
+	if (c == 'c' || c == 's' || c == 'p' || c == 'd' || c == 'i' || c == 'o'
+			|| c == 'u' || c == 'x' || c == 'X' || c == 'f'
+			|| c == '%' || c == '-' || c == '+' || c == '.'
+			|| (c >= 48 && c <= 57) || c == ' ' || c == '#' || c == 'l'
+			|| c == 'h' || c == 'L')
+		return (1);
+	return (0);
 }

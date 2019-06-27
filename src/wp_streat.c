@@ -6,7 +6,7 @@
 /*   By: maegaspa <maegaspa@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/11 17:20:00 by hmichel      #+#   ##    ##    #+#       */
-/*   Updated: 2019/06/16 19:58:57 by maegaspa    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/06/25 15:34:37 by maegaspa    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -80,7 +80,8 @@ int			s_treat_2(t_flag flag, char *string, int nb_char, int putspace)
 	int		i;
 
 	i = -1;
-	if (flag.width && !flag.minus)
+	if ((flag.width && !flag.minus && flag.precision) ||
+		(flag.width && !flag.minus && !flag.point))
 	{
 		if (!string || (putspace > 0))
 		{

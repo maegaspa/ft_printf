@@ -6,7 +6,7 @@
 /*   By: maegaspa <maegaspa@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/06/14 18:02:35 by maegaspa     #+#   ##    ##    #+#       */
-/*   Updated: 2019/06/16 19:58:38 by maegaspa    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/06/18 14:49:36 by maegaspa    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -38,20 +38,20 @@ char					*cut_str_long(char *seg, t_flag flags)
 {
 	if (flags.conv == 'x' || flags.conv == 'X')
 	{
-		if (flags._l && ft_strlen(seg) > 16)
+		if (flags.l && ft_strlen(seg) > 16)
 			seg[16] = '\0';
-		if (ft_strlen(seg) > 8 && !flags._l)
+		if (ft_strlen(seg) > 8 && !flags.l)
 			seg[8] = '\0';
-		if (flags._h == 1)
+		if (flags.h == 1)
 			seg[4] = '\0';
-		if (flags._h == 2)
+		if (flags.h == 2)
 			seg[2] = '\0';
 	}
 	else
 	{
-		if (flags._h == 1)
+		if (flags.h == 1)
 			seg[6] = '\0';
-		if (flags._h == 2)
+		if (flags.h == 2)
 			seg[3] = '\0';
 	}
 	return (seg);
@@ -64,9 +64,9 @@ char					*dectoocta(unsigned long n, t_flag flags)
 	int					j;
 	unsigned long		tmp;
 
-	if (flags._h)
+	if (flags.h)
 		n = (unsigned short)n;
-	if (flags._h == 2)
+	if (flags.h == 2)
 		n = (unsigned char)n;
 	i = 0;
 	if (n == 0)

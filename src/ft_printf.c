@@ -1,50 +1,22 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   util.c                                           .::    .:/ .      .::   */
+/*   ft_printf.c                                      .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
 /*   By: maegaspa <maegaspa@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2019/05/30 15:47:32 by maegaspa     #+#   ##    ##    #+#       */
-/*   Updated: 2019/06/18 13:17:58 by maegaspa    ###    #+. /#+    ###.fr     */
+/*   Created: 2019/06/18 12:56:20 by maegaspa     #+#   ##    ##    #+#       */
+/*   Updated: 2019/06/18 12:57:34 by maegaspa    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../includes/printf.h"
 
-int			char_treat(char c, int nb_char)
+int				ft_printf(const char *format, ...)
 {
-	ft_putchar(c);
-	nb_char++;
-	return (nb_char);
-}
+	va_list ap;
 
-int			multichar_treat(char *c, int nb_char)
-{
-	ft_putstr(c);
-	nb_char += ft_strlen(c);
-	return (nb_char);
-}
-
-int			ft_putchar_add(char c)
-{
-	write(1, &c, 1);
-	return (1);
-}
-
-double long	ft_pow10(double long f, int exp)
-{
-	while (exp)
-	{
-		f = f * 10;
-		exp--;
-	}
-	return (f);
-}
-
-void		free_compt(t_compt *compt)
-{
-	free(compt->num);
-	free(compt->num2);
+	va_start(ap, format);
+	return (parse((char *)format, ap));
 }
