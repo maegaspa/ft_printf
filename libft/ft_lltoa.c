@@ -6,7 +6,7 @@
 /*   By: maegaspa <maegaspa@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/15 15:36:26 by maegaspa     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/15 15:03:03 by maegaspa    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/07/22 17:02:15 by maegaspa    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -40,8 +40,8 @@ char			*ft_lltoa(long long n)
 
 	if (n == LLONG_MIN)
 	{
-		str = ft_memalloc(20);
-		str = ft_strcpy(str, "−9223372036854775807");
+		str = ft_memalloc(21);
+		str = ft_strcpy(str, "-9223372036854775808");
 		return (str);
 	}
 	tmp2 = one(n);

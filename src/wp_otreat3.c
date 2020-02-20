@@ -6,7 +6,7 @@
 /*   By: maegaspa <maegaspa@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/06/14 17:20:11 by maegaspa     #+#   ##    ##    #+#       */
-/*   Updated: 2019/06/23 15:47:43 by maegaspa    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/06/28 16:20:11 by maegaspa    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -76,7 +76,8 @@ int				o_treat_10(t_flag flag, long long dig, char *nbr, int nb_char)
 			while (++i < putspace)
 				nb_char = char_treat(' ', nb_char);
 	}
-	if (flag.width > 0 && flag.point > 0 && flag.precision > 0 && flag.minus > 0 && !flag.hashtag)
+	if (flag.width > 0 && flag.point > 0 && flag.precision > 0
+		&& flag.minus > 0 && !flag.hashtag)
 	{
 		putspace = flag.width - ft_strlen(nbr) - 1;
 		if ((size_t)flag.width > ft_strlen(nbr))

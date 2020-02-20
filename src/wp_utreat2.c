@@ -6,7 +6,7 @@
 /*   By: maegaspa <maegaspa@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/06/14 17:50:52 by maegaspa     #+#   ##    ##    #+#       */
-/*   Updated: 2019/06/25 18:03:38 by maegaspa    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/06/28 16:35:27 by maegaspa    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -24,7 +24,8 @@ int				u_treat_5(t_flag flag, long long dig, char *nbr, int nb_char)
 	{
 		putspace = flag.width - ft_strlen(nbr);
 		if (flag.width > ft_strlen(nbr) && flag.precision > ft_strlen(nbr))
-			putspace = flag.width - ft_strlen(nbr) - (flag.precision - ft_strlen(nbr));
+			putspace = flag.width - ft_strlen(nbr) -
+			(flag.precision - ft_strlen(nbr));
 		if ((size_t)flag.width > ft_strlen(nbr) + flag.precision)
 			while (++i < putspace)
 				nb_char = char_treat(' ', nb_char);
@@ -36,7 +37,6 @@ int				u_treat_5(t_flag flag, long long dig, char *nbr, int nb_char)
 	}
 	return (nb_char);
 }
-
 
 int				u_treat_5bis(t_flag flag, long long dig, char *nbr, int nb_char)
 {

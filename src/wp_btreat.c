@@ -3,30 +3,17 @@
 /*                                                              /             */
 /*   wp_btreat.c                                      .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: hmichel <hmichel@student.le-101.fr>        +:+   +:    +:    +:+     */
+/*   By: maegaspa <maegaspa@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/06/18 16:47:43 by hmichel      #+#   ##    ##    #+#       */
-/*   Updated: 2019/06/18 17:47:20 by hmichel     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/07/22 16:00:41 by maegaspa    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../includes/printf.h"
 
-/*
-	Ajouter :
-				-int				wp_btreat(t_flag flag, unsigned long long dig) dans .h
-				-if (flag.conv == 'b' || flag.conv == 'B')
-				{
-					out.yessai = va_arg(ap, unsigned long long);      dans choose_xo
-					nb_char += wp_btreat(flag, out.yessai);
-				}
-				- || c == 'b' || c == 'B' dans is_con
-				-ajouter dossier wp_ptreat dans makefile
-				-verifier qu'il ne reste plus de <stdio.h> dans les .c
-*/
-
-char			*dectobin(unsigned long long n, t_flag flags, int i)
+static char		*dectobin(unsigned long long n, t_flag flags, int i)
 {
 	char				*seg;
 	int					j;

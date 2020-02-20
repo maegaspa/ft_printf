@@ -6,13 +6,12 @@
 /*   By: maegaspa <maegaspa@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/06/15 14:12:02 by maegaspa     #+#   ##    ##    #+#       */
-/*   Updated: 2019/06/25 18:03:43 by maegaspa    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/07/22 15:35:14 by maegaspa    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../includes/printf.h"
-#include <stdio.h>
 
 char			*nbr_dig(long long dig, t_flag flag, char *str)
 {
@@ -60,6 +59,11 @@ int				choose_xo(t_flag flag, va_list ap, int nb_char, t_out out)
 	{
 		out.o = va_arg(ap, unsigned long);
 		nb_char += wp_otreat(flag, out.o);
+	}
+	if (flag.conv == 'b' || flag.conv == 'B')
+	{
+		out.yessai = va_arg(ap, unsigned long long);
+		nb_char += wp_btreat(flag, out.yessai);
 	}
 	return (nb_char);
 }

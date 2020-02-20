@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   ft_strnew.c                                      .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: maegaspa <marvin@le-101.fr>                +:+   +:    +:    +:+     */
+/*   By: maegaspa <maegaspa@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/10/10 13:52:48 by maegaspa     #+#   ##    ##    #+#       */
-/*   Updated: 2018/10/12 17:42:06 by maegaspa    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/06/18 12:44:55 by maegaspa    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -19,7 +19,7 @@ char	*ft_strnew(size_t size)
 	unsigned int		i;
 
 	i = 0;
-	if (!(lilchain = (char *)malloc(sizeof(char) * size + 1)))
+	if (!(lilchain = (char *)malloc(sizeof(char) * (size + 1))))
 		return (NULL);
 	while (i < size + 1)
 	{

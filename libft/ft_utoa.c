@@ -6,7 +6,7 @@
 /*   By: maegaspa <maegaspa@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/16 13:51:40 by maegaspa     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/15 15:01:59 by maegaspa    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/07/22 17:02:27 by maegaspa    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -29,10 +29,7 @@ char			*ft_utoa(long long n)
 	char	*str;
 
 	if (n < 0)
-	{
-		n *= -1;
 		n = 4294967296 - n;
-	}
 	i = len(n);
 	if (!(str = malloc((sizeof(char) * i))))
 		return (0);
